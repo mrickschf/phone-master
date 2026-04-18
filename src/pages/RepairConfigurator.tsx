@@ -23,21 +23,21 @@ const repairPrices: Record<
   apple: {
     // ── iPhone 16 ──────────────────────────────────────────
     "iPhone 16 Pro Max": {
-      screen: { price: 449, duration: "1h" },
+      screen: { price: 469, duration: "1h" },
       battery: { price: 109, duration: "30min" },
       camera: { price: 149, duration: "45min" },
       frontCamera: { price: 99, duration: "45min" },
       charging: { price: 129, duration: "45min" },
     },
     "iPhone 16 Pro": {
-      screen: { price: 399, duration: "1h" },
+      screen: { price: 349, duration: "1h" },
       battery: { price: 109, duration: "30min" },
       camera: { price: 139, duration: "45min" },
       frontCamera: { price: 89, duration: "45min" },
       charging: { price: 119, duration: "45min" },
     },
     "iPhone 16 Plus": {
-      screen: { price: 249, duration: "1h" },
+      screen: { price: 339, duration: "1h" },
       battery: { price: 99, duration: "30min" },
       camera: { price: 119, duration: "45min" },
       frontCamera: { price: 89, duration: "45min" },
@@ -325,14 +325,14 @@ const repairPrices: Record<
       charging: { price: 79, duration: "45min" },
     },
     "Galaxy S20+": {
-      screen: { price: 169, duration: "1h" },
+      screen: { price: 279, duration: "1h" },
       battery: { price: 59, duration: "30min" },
       camera: { price: 149, duration: "45min" },
       frontCamera: { price: 89, duration: "45min" },
       charging: { price: 89, duration: "45min" },
     },
     "Galaxy S20": {
-      screen: { price: 159, duration: "1h" },
+      screen: { price: 249, duration: "1h" },
       battery: { price: 59, duration: "30min" },
       camera: { price: 89, duration: "45min" },
       frontCamera: { price: 79, duration: "45min" },
@@ -346,7 +346,7 @@ const repairPrices: Record<
       charging: { price: 79, duration: "45min" },
     },
     "Galaxy S20 FE 5G": {
-      screen: { price: 129, duration: "1h" },
+      screen: { price: 139, duration: "1h" },
       battery: { price: 59, duration: "30min" },
       camera: { price: 109, duration: "45min" },
       frontCamera: { price: 89, duration: "45min" },
