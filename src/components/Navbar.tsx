@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Phone, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import logo from "../assets/logos/phonemaster-logo.webp";
+import logo from "../assets/logos/phonemaster-logo.png";
 import badge from "../assets/logos/since.png";
 
 const Navbar = () => {

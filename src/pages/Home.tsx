@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Shield, Clock, PenTool as Tool, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet-async";
-import Image from "../assets/image.webp";
+import HeroBg from "../assets/hero-bg.png";
 
 // Animations config
 const container = {
@@ -45,60 +45,47 @@ const Home = () => {
         initial="hidden"
         animate="show"
         variants={container}
-        className="relative bg-gradient-to-r bg-[#c7e5c6] text-white py-20"
+        className="relative text-white py-32 md:py-48 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: `url(${HeroBg})` }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <motion.div variants={item}>
-              <motion.h1
-                className="text-4xl md:text-5xl font-bold mb-6"
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-              >
-                Réparation de smartphones à domicile
-              </motion.h1>
+        <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-black/10 to-transparent" />
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div variants={item} className="max-w-2xl">
+            <motion.h1
+              className="text-4xl md:text-5xl font-bold mb-6 drop-shadow-lg"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+            >
+              Réparation de smartphones à domicile
+            </motion.h1>
 
-              <motion.p
-                className="text-xl mb-8 text-gray-700"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.4 }}
-              >
-                Service professionnel, rapide et garanti pour Apple, Samsung et
-                Huawei
-              </motion.p>
-
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.6 }}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <Link
-                  to="/repair"
-                  className="inline-flex items-center bg-white text-[#c7e5c6] px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
-                >
-                  Réparer mon smartphone
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </motion.div>
-            </motion.div>
+            <motion.p
+              className="text-xl mb-8 text-white/90 drop-shadow"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4 }}
+            >
+              Service professionnel, rapide et garanti pour Apple, Samsung et
+              Huawei
+            </motion.p>
 
             <motion.div
-              className="hidden md:block"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.3 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.6 }}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
-              <img
-                src={Image}
-                alt="Réparation smartphone"
-                className="rounded-lg shadow-xl transform hover:scale-105 transition-transform duration-500"
-              />
+              <Link
+                to="/repair"
+                className="inline-flex items-center bg-white text-[#6ab069] px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors"
+              >
+                Réparer mon smartphone
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
             </motion.div>
-          </div>
+          </motion.div>
         </div>
       </motion.section>
 
