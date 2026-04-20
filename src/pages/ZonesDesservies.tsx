@@ -13,16 +13,13 @@ const cities = [
     path: "/reparation-ecran-iphone-villenave-dornon",
   },
   { name: "Léognan", path: "/reparation-smartphone-leognan" },
-  { name: "Libourne", path: "/reparation-smartphone-libourne" },
-  { name: "Saint-Médard-en-Jalles", path: "/reparation-telephone-saint-medard-en-jalles" },
-  { name: "Lormont", path: "/reparation-smartphone-lormont" },
 ];
 
 const ZonesDesservies = () => {
   return (
     <>
       <Helmet>
-        <title>Zones Desservies - Réparation à Domicile Gironde | Phone Master</title>
+        <title>Zones Desservies - Réparation à Domicile Bordeaux Métropole | Phone Master</title>
         <meta
           name="description"
           content="Découvrez toutes les zones où intervient Phone Master. Réparation smartphone à domicile à Bordeaux, Talence, Pessac, Mérignac et alentours."

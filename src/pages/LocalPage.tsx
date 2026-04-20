@@ -1,13 +1,30 @@
 import React from "react";
 import { Helmet } from "react-helmet-async";
-import "./LocalPage.css";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import {
+  Monitor,
+  BatteryCharging,
+  Plug,
+  Camera,
+  ClipboardList,
+  Wrench,
+  Car,
+  BadgeEuro,
+  ShieldCheck,
+  Timer,
+  CalendarDays,
+  Phone,
+  Mail,
+  ArrowRight,
+  MapPin,
+  ChevronDown,
+} from "lucide-react";
 
 interface LocalPageProps {
   city: string;
 }
 
-// Mapping complet par ville — titre, description, canonical, contenu
 const cityData: Record<
   string,
   {
@@ -17,17 +34,19 @@ const cityData: Record<
     specialties: string;
     commonIssues: string;
     testimonial: string;
+    testimonialAuthor: string;
   }
 > = {
   Bordeaux: {
     title: "Réparation smartphone Bordeaux à domicile — Phone Master",
     description:
-      "Réparation smartphone à domicile à Bordeaux : écran cassé, batterie, connecteur. iPhone, Samsung, Huawei. Devis gratuit, garantie 6 mois. 7j/7 — 06 35 17 57 11.",
+      "Réparation smartphone à domicile à Bordeaux : écran cassé, batterie, connecteur. iPhone, Samsung, Huawei. Devis gratuit, garantie 6 mois. 6j/7 — 06 35 17 57 11.",
     canonical: "https://www.phone-master.fr/reparation-smartphone-bordeaux",
     specialties: "iPhone et Samsung Galaxy",
     commonIssues: "écrans cassés et problèmes de batterie",
     testimonial:
-      '"Service impeccable et rapide à mon domicile en centre-ville. Très professionnel !" — Client de Bordeaux',
+      "Service impeccable et rapide à mon domicile en centre-ville. Très professionnel !",
+    testimonialAuthor: "Client de Bordeaux",
   },
   Talence: {
     title: "Réparation téléphone Talence à domicile — Phone Master",
@@ -37,17 +56,19 @@ const cityData: Record<
     specialties: "tous modèles Android et iPhone",
     commonIssues: "problèmes de connecteur de charge et écrans cassés",
     testimonial:
-      '"Intervention à domicile le jour même, prix très raisonnable." — Client de Talence',
+      "Intervention à domicile le jour même, prix très raisonnable.",
+    testimonialAuthor: "Client de Talence",
   },
   Pessac: {
     title: "Réparateur iPhone Samsung Pessac à domicile — Phone Master",
     description:
-      "Réparation iPhone et Samsung à Pessac : remplacement écran, batterie, caméra. Déplacement gratuit, garantie 6 mois. Disponible 7j/7 — 06 35 17 57 11.",
+      "Réparation iPhone et Samsung à Pessac : remplacement écran, batterie, caméra. Déplacement gratuit, garantie 6 mois. Disponible 6j/7 — 06 35 17 57 11.",
     canonical: "https://www.phone-master.fr/reparateur-iphone-pessac",
     specialties: "iPhone et Huawei",
     commonIssues: "batterie et problèmes d'écran tactile",
     testimonial:
-      '"Réparation parfaite de mon iPhone en moins d\'une heure." — Client de Pessac',
+      "Réparation parfaite de mon iPhone en moins d'une heure.",
+    testimonialAuthor: "Client de Pessac",
   },
   Bègles: {
     title: "Changement écran téléphone Bègles à domicile — Phone Master",
@@ -56,18 +77,19 @@ const cityData: Record<
     canonical: "https://www.phone-master.fr/changement-ecran-telephone-begles",
     specialties: "toutes marques de smartphones",
     commonIssues: "écrans cassés et batteries défaillantes",
-    testimonial:
-      '"Technicien rapide et professionnel, je recommande !" — Client de Bègles',
+    testimonial: "Technicien rapide et professionnel, je recommande !",
+    testimonialAuthor: "Client de Bègles",
   },
   Mérignac: {
     title: "Réparateur mobile Mérignac à domicile — Phone Master",
     description:
-      "Réparation mobile à Mérignac : écran, batterie, connecteur. Technicien certifié, déplacement gratuit, garantie 6 mois. Disponible 7j/7 — 06 35 17 57 11.",
+      "Réparation mobile à Mérignac : écran, batterie, connecteur. Technicien certifié, déplacement gratuit, garantie 6 mois. Disponible 6j/7 — 06 35 17 57 11.",
     canonical: "https://www.phone-master.fr/reparateur-mobile-merignac",
     specialties: "iPhone et Samsung Galaxy",
     commonIssues: "écrans brisés et autonomie batterie",
     testimonial:
-      '"Très réactif, est venu le soir même. Excellent travail !" — Client de Mérignac',
+      "Très réactif, est venu le soir même. Excellent travail !",
+    testimonialAuthor: "Client de Mérignac",
   },
   Gradignan: {
     title: "Réparation mobile Gradignan à domicile — Phone Master",
@@ -77,8 +99,8 @@ const cityData: Record<
       "https://www.phone-master.fr/service-reparation-mobile-gradignan",
     specialties: "toutes marques de smartphones",
     commonIssues: "écrans cassés et problèmes de charge",
-    testimonial:
-      '"Intervention rapide et soignée, prix honnête." — Client de Gradignan',
+    testimonial: "Intervention rapide et soignée, prix honnête.",
+    testimonialAuthor: "Client de Gradignan",
   },
   "Villenave-d'Ornon": {
     title: "Réparation écran iPhone Villenave-d'Ornon — Phone Master",
@@ -89,21 +111,22 @@ const cityData: Record<
     specialties: "iPhone et Samsung",
     commonIssues: "écrans fissurés et batteries usées",
     testimonial:
-      '"Parfait du début à la fin, téléphone réparé en 30 min !" — Client de Villenave-d\'Ornon',
+      "Parfait du début à la fin, téléphone réparé en 30 min !",
+    testimonialAuthor: "Client de Villenave-d'Ornon",
   },
   Léognan: {
     title: "Réparation smartphone Léognan à domicile — Phone Master",
     description:
-      "Technicien réparation smartphone à Léognan : écran, batterie, connecteur. Déplacement gratuit, garantie 6 mois. Disponible 7j/7 — 06 35 17 57 11.",
+      "Technicien réparation smartphone à Léognan : écran, batterie, connecteur. Déplacement gratuit, garantie 6 mois. Disponible 6j/7 — 06 35 17 57 11.",
     canonical: "https://www.phone-master.fr/reparation-smartphone-leognan",
     specialties: "toutes marques de smartphones",
     commonIssues: "écrans cassés et problèmes de batterie",
     testimonial:
-      '"Super service, rapide et efficace, je recommande !" — Client de Léognan',
+      "Super service, rapide et efficace, je recommande !",
+    testimonialAuthor: "Client de Léognan",
   },
 };
 
-// Villes pour les liens internes
 const allCities = [
   { name: "Bordeaux", path: "/reparation-smartphone-bordeaux" },
   { name: "Talence", path: "/reparation-telephone-talence" },
@@ -111,12 +134,51 @@ const allCities = [
   { name: "Bègles", path: "/changement-ecran-telephone-begles" },
   { name: "Mérignac", path: "/reparateur-mobile-merignac" },
   { name: "Gradignan", path: "/service-reparation-mobile-gradignan" },
-  {
-    name: "Villenave-d'Ornon",
-    path: "/reparation-ecran-iphone-villenave-dornon",
-  },
+  { name: "Villenave-d'Ornon", path: "/reparation-ecran-iphone-villenave-dornon" },
   { name: "Léognan", path: "/reparation-smartphone-leognan" },
 ];
+
+const services = [
+  { icon: Monitor, label: "Changement d'écran cassé" },
+  { icon: BatteryCharging, label: "Remplacement de batterie" },
+  { icon: Plug, label: "Réparation connecteur de charge" },
+  { icon: Camera, label: "Réparation caméra" },
+  { icon: ClipboardList, label: "Diagnostic gratuit & devis clair" },
+];
+
+const reasons = [
+  { icon: Wrench, label: "Technicien certifié", desc: "Pièces de qualité, 10 ans d'expérience" },
+  { icon: Car, label: "Déplacement gratuit", desc: "On vient chez vous, sans supplément" },
+  { icon: BadgeEuro, label: "Devis gratuit", desc: "Sans engagement, transparent" },
+  { icon: ShieldCheck, label: "Garantie 6 mois", desc: "Pièces et main d'œuvre" },
+  { icon: Timer, label: "30 minutes en moyenne", desc: "Réparation rapide sur place" },
+  { icon: CalendarDays, label: "Disponible 6j/7", desc: "Lun–Sam · 8h – 21h30" },
+];
+
+const faqs = (city: string) => [
+  {
+    q: `Combien coûte une réparation d'écran à ${city} ?`,
+    a: "Le prix varie selon le modèle : à partir de 79€ pour un iPhone 11, 139€ pour un iPhone 13, 169€ pour un iPhone 14. Contactez-nous pour un devis gratuit et précis sur votre modèle.",
+  },
+  {
+    q: `Combien de temps prend une réparation à domicile à ${city} ?`,
+    a: `La plupart des réparations à ${city} sont effectuées en 30 minutes directement chez vous. Les réparations plus complexes peuvent prendre jusqu'à 1 heure, toujours en une seule visite.`,
+  },
+  {
+    q: `Vous déplacez-vous vraiment à ${city} gratuitement ?`,
+    a: `Oui, le déplacement est totalement gratuit à ${city} et dans toute la Bordeaux Métropole. Vous ne payez que la réparation, garantie 6 mois pièces et main d'œuvre.`,
+  },
+];
+
+const container = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1, transition: { staggerChildren: 0.08 } },
+};
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
+};
 
 const LocalPage: React.FC<LocalPageProps> = ({ city }) => {
   const data = cityData[city] || {
@@ -130,17 +192,18 @@ const LocalPage: React.FC<LocalPageProps> = ({ city }) => {
     specialties: "toutes marques de smartphones",
     commonIssues: "tous types de problèmes",
     testimonial: "",
+    testimonialAuthor: "",
   };
 
-  const nearbyCities = allCities.filter((c) => c.name !== city).slice(0, 3);
+  const nearbyCities = allCities.filter((c) => c.name !== city).slice(0, 4);
+  const [openFaq, setOpenFaq] = React.useState<number | null>(null);
 
   return (
-    <div className="local-page-container">
+    <>
       <Helmet>
         <title>{data.title}</title>
         <meta name="description" content={data.description} />
         <link rel="canonical" href={data.canonical} />
-
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -156,22 +219,11 @@ const LocalPage: React.FC<LocalPageProps> = ({ city }) => {
               addressRegion: "Gironde",
               addressCountry: "FR",
             },
-            areaServed: {
-              "@type": "City",
-              name: city,
-            },
+            areaServed: { "@type": "City", name: city },
             priceRange: "€€",
             openingHoursSpecification: {
               "@type": "OpeningHoursSpecification",
-              dayOfWeek: [
-                "Monday",
-                "Tuesday",
-                "Wednesday",
-                "Thursday",
-                "Friday",
-                "Saturday",
-                "Sunday",
-              ],
+              dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
               opens: "08:00",
               closes: "21:30",
             },
@@ -179,134 +231,270 @@ const LocalPage: React.FC<LocalPageProps> = ({ city }) => {
         </script>
       </Helmet>
 
-      <h1>Réparation Téléphone à {city} – Rapide, Fiable, à Domicile</h1>
+      <div className="bg-white min-h-screen" style={{ fontFamily: "'Inter', sans-serif" }}>
 
-      <p>
-        Vous habitez <strong>{city}</strong> et cherchez un réparateur téléphone
-        de confiance ? Je suis un <strong>technicien à domicile</strong>{" "}
-        spécialisé dans la <strong>réparation de smartphones</strong> toutes
-        marques (iPhone, Samsung, Huawei…) dans toute la{" "}
-        <strong>Gironde</strong>.
-      </p>
+        {/* ── HERO ── */}
+        <section className="relative pt-32 pb-20 px-4 overflow-hidden bg-gradient-to-br from-gray-50 to-white">
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#0b6666]/5 rounded-full blur-3xl translate-x-1/3 -translate-y-1/3" />
+          </div>
+          <div className="max-w-4xl mx-auto relative">
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0b6666]/8 border border-[#0b6666]/15 text-[#0b6666] text-sm font-medium mb-6"
+                style={{ background: "rgba(11,102,102,0.07)" }}>
+                <MapPin className="w-3.5 h-3.5" />
+                Bordeaux Métropole
+              </div>
 
-      <p>
-        À <strong>{city}</strong>, je me spécialise particulièrement dans les
-        réparations de <strong>{data.specialties}</strong> et j'interviens
-        fréquemment pour résoudre des problèmes de{" "}
-        <strong>{data.commonIssues}</strong>.
-      </p>
+              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight leading-tight mb-4">
+                Réparation téléphone<br />
+                <span className="text-[#0b6666]">à {city}</span>
+              </h1>
 
-      <h2>📱 Services de Réparation à {city}</h2>
-      <ul>
-        <li>✅ Changement d'écran cassé</li>
-        <li>✅ Remplacement de batterie</li>
-        <li>✅ Réparation connecteur de charge</li>
-        <li>✅ Réparation caméra</li>
-        <li>✅ Diagnostic gratuit et devis clair</li>
-      </ul>
+              <p className="text-lg text-gray-500 max-w-xl mb-8">
+                Technicien à domicile, spécialisé{" "}
+                <strong className="text-gray-700">{data.specialties}</strong>.
+                Intervention pour{" "}
+                <strong className="text-gray-700">{data.commonIssues}</strong>.
+              </p>
 
-      <h2>📍 Pourquoi me choisir à {city} ?</h2>
-      <ul>
-        <li>
-          🔧 <strong>Technicien certifié</strong> avec pièces de qualité
-        </li>
-        <li>
-          🚗 <strong>Déplacement gratuit</strong> à {city} — je viens chez vous
-        </li>
-        <li>
-          💶 <strong>Devis gratuit</strong> sans engagement
-        </li>
-        <li>
-          🔒 <strong>Garantie 6 mois</strong> sur toutes les réparations
-        </li>
-        <li>
-          ⏱️ <strong>Intervention en 30 minutes</strong> en moyenne
-        </li>
-        <li>
-          📅 <strong>Disponible 7j/7</strong> de 8h à 21h30
-        </li>
-      </ul>
+              <div className="flex flex-wrap gap-3">
+                <motion.a
+                  href="tel:0635175711"
+                  whileHover={{ y: -2 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="inline-flex items-center gap-2 bg-gray-950 text-white px-6 py-3 rounded-xl font-semibold text-sm shadow-[0_2px_12px_rgba(0,0,0,0.18)] hover:shadow-[0_4px_20px_rgba(0,0,0,0.24)] transition-all"
+                >
+                  <Phone className="w-4 h-4" />
+                  06 35 17 57 11
+                </motion.a>
+                <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.97 }}>
+                  <Link
+                    to="/repair"
+                    className="inline-flex items-center gap-2 bg-white text-gray-700 px-6 py-3 rounded-xl font-semibold text-sm border border-gray-200 hover:border-gray-300 hover:shadow-sm transition-all"
+                  >
+                    Prendre rendez-vous
+                    <ArrowRight className="w-4 h-4 opacity-60" />
+                  </Link>
+                </motion.div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
 
-      {data.testimonial && (
-        <div className="testimonial">
-          <h3>Ce que disent mes clients à {city}</h3>
-          <blockquote>{data.testimonial}</blockquote>
-        </div>
-      )}
+        {/* ── SERVICES ── */}
+        <section className="py-16 px-4 bg-gray-50">
+          <div className="max-w-4xl mx-auto">
+            <motion.div
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: "-60px" }}
+              variants={container}
+            >
+              <motion.h2 variants={fadeUp} className="text-2xl font-bold text-gray-900 mb-2">
+                Services de réparation à {city}
+              </motion.h2>
+              <motion.p variants={fadeUp} className="text-gray-500 mb-8">
+                Toutes les réparations effectuées sur place, en une seule visite.
+              </motion.p>
 
-      <h2>🗺️ Zones desservies autour de {city}</h2>
-      <p>
-        Intervention possible sur toute la commune de <strong>{city}</strong> et
-        les communes voisines.
-      </p>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {services.map(({ icon: Icon, label }) => (
+                  <motion.div
+                    key={label}
+                    variants={fadeUp}
+                    whileHover={{ y: -3 }}
+                    className="bg-white rounded-2xl border border-gray-100 p-5 flex items-center gap-4 shadow-sm hover:shadow-md transition-all"
+                  >
+                    <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+                      style={{ background: "rgba(11,102,102,0.08)" }}>
+                      <Icon className="w-5 h-5 text-[#0b6666]" />
+                    </div>
+                    <span className="text-sm font-semibold text-gray-800">{label}</span>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </section>
 
-      <div className="nearby-cities">
-        <p>Je me déplace également à :</p>
-        <ul>
-          {nearbyCities.map((nearbyCity) => (
-            <li key={nearbyCity.name}>
-              <Link to={nearbyCity.path}>
-                Réparation téléphone à {nearbyCity.name}
-              </Link>
-            </li>
-          ))}
-        </ul>
+        {/* ── POURQUOI NOUS ── */}
+        <section className="py-16 px-4 bg-white">
+          <div className="max-w-4xl mx-auto">
+            <motion.div
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: "-60px" }}
+              variants={container}
+            >
+              <motion.h2 variants={fadeUp} className="text-2xl font-bold text-gray-900 mb-2">
+                Pourquoi choisir Phone Master à {city} ?
+              </motion.h2>
+              <motion.p variants={fadeUp} className="text-gray-500 mb-8">
+                Un service de confiance, transparent et rapide.
+              </motion.p>
+
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {reasons.map(({ icon: Icon, label, desc }) => (
+                  <motion.div
+                    key={label}
+                    variants={fadeUp}
+                    className="flex items-start gap-4 p-5 rounded-2xl bg-gray-50 border border-gray-100"
+                  >
+                    <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 mt-0.5"
+                      style={{ background: "rgba(11,102,102,0.08)" }}>
+                      <Icon className="w-4 h-4 text-[#0b6666]" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-gray-900">{label}</p>
+                      <p className="text-xs text-gray-500 mt-0.5">{desc}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ── TÉMOIGNAGE ── */}
+        {data.testimonial && (
+          <section className="py-14 px-4 bg-gray-950">
+            <div className="max-w-3xl mx-auto text-center">
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+              >
+                <svg className="w-8 h-8 text-[#72b9bb] mx-auto mb-4 opacity-60" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                </svg>
+                <p className="text-xl text-white font-medium leading-relaxed mb-4">
+                  "{data.testimonial}"
+                </p>
+                <p className="text-sm text-gray-400 font-medium">— {data.testimonialAuthor}</p>
+              </motion.div>
+            </div>
+          </section>
+        )}
+
+        {/* ── FAQ ── */}
+        <section className="py-16 px-4 bg-white">
+          <div className="max-w-3xl mx-auto">
+            <motion.div
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: "-60px" }}
+              variants={container}
+            >
+              <motion.h2 variants={fadeUp} className="text-2xl font-bold text-gray-900 mb-8">
+                Questions fréquentes
+              </motion.h2>
+
+              <div className="flex flex-col gap-3">
+                {faqs(city).map((faq, i) => (
+                  <motion.div
+                    key={i}
+                    variants={fadeUp}
+                    className="border border-gray-200 rounded-2xl overflow-hidden"
+                  >
+                    <button
+                      onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                      className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left hover:bg-gray-50 transition-colors"
+                    >
+                      <span className="text-sm font-semibold text-gray-900">{faq.q}</span>
+                      <ChevronDown
+                        className={`w-4 h-4 text-gray-400 shrink-0 transition-transform duration-200 ${openFaq === i ? "rotate-180" : ""}`}
+                      />
+                    </button>
+                    {openFaq === i && (
+                      <div className="px-5 pb-4 text-sm text-gray-500 leading-relaxed border-t border-gray-100 pt-3">
+                        {faq.a}
+                      </div>
+                    )}
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ── VILLES PROCHES ── */}
+        <section className="py-14 px-4 bg-gray-50">
+          <div className="max-w-4xl mx-auto">
+            <motion.div
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              variants={container}
+            >
+              <motion.h2 variants={fadeUp} className="text-xl font-bold text-gray-900 mb-2">
+                Zones desservies autour de {city}
+              </motion.h2>
+              <motion.p variants={fadeUp} className="text-gray-500 text-sm mb-6">
+                Intervention possible sur toute la commune et les communes voisines.
+              </motion.p>
+              <div className="flex flex-wrap gap-3">
+                {nearbyCities.map((c) => (
+                  <motion.div key={c.name} variants={fadeUp}>
+                    <Link
+                      to={c.path}
+                      className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-white border border-gray-200 text-sm font-medium text-gray-700 hover:border-[#0b6666] hover:text-[#0b6666] transition-colors"
+                    >
+                      <MapPin className="w-3.5 h-3.5 opacity-50" />
+                      {c.name}
+                    </Link>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ── CTA FINAL ── */}
+        <section className="py-16 px-4 bg-white border-t border-gray-100">
+          <div className="max-w-3xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="bg-gray-950 rounded-3xl p-8 md:p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
+            >
+              <div>
+                <p className="text-white text-xl font-bold mb-1">
+                  Besoin d'un réparateur à {city} ?
+                </p>
+                <p className="text-gray-400 text-sm">
+                  Disponible 6j/7 · Devis gratuit · Déplacement offert
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-3 shrink-0">
+                <a
+                  href="tel:0635175711"
+                  className="inline-flex items-center gap-2 bg-white text-gray-900 px-5 py-2.5 rounded-xl font-semibold text-sm hover:bg-gray-100 transition-colors"
+                >
+                  <Phone className="w-4 h-4" />
+                  Appeler
+                </a>
+                <a
+                  href="mailto:phone.master.gironde@gmail.com"
+                  className="inline-flex items-center gap-2 bg-white/10 text-white px-5 py-2.5 rounded-xl font-semibold text-sm hover:bg-white/15 transition-colors border border-white/10"
+                >
+                  <Mail className="w-4 h-4" />
+                  Email
+                </a>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
       </div>
-
-      <h2>📞 Contactez-moi dès aujourd'hui</h2>
-      <p>
-        Besoin d'un <strong>réparateur téléphone à {city}</strong> ? Je suis
-        disponible 7j/7 pour un devis rapide et une intervention dans la
-        journée.
-      </p>
-
-      <div className="contact-info">
-        <p>
-          <strong>Téléphone :</strong>{" "}
-          <a href="tel:0635175711">06 35 17 57 11</a>
-        </p>
-        <p>
-          <strong>Email :</strong>{" "}
-          <a href="mailto:phone.master.gironde@gmail.com">
-            phone.master.gironde@gmail.com
-          </a>
-        </p>
-        <p>
-          <strong>Horaires :</strong> Disponible 7j/7 de 8h à 21h30
-        </p>
-      </div>
-
-      <div className="faq-section">
-        <h2>Questions fréquentes — réparation téléphone à {city}</h2>
-
-        <div className="faq-item">
-          <h3>Combien coûte une réparation d'écran à {city} ?</h3>
-          <p>
-            Le prix varie selon le modèle : à partir de 79€ pour un iPhone 11,
-            139€ pour un iPhone 13, 169€ pour un iPhone 14. Contactez-moi pour
-            un devis gratuit et précis sur votre modèle.
-          </p>
-        </div>
-
-        <div className="faq-item">
-          <h3>Combien de temps prend une réparation à domicile à {city} ?</h3>
-          <p>
-            La plupart des réparations à {city} sont effectuées en 30 minutes
-            directement chez vous. Les réparations plus complexes peuvent
-            prendre jusqu'à 1 heure, toujours en une seule visite.
-          </p>
-        </div>
-
-        <div className="faq-item">
-          <h3>Vous déplacez-vous vraiment à {city} gratuitement ?</h3>
-          <p>
-            Oui, le déplacement est totalement gratuit à {city} et dans toute la
-            Gironde. Vous ne payez que la réparation, garantie 6 mois pièces et
-            main d'œuvre.
-          </p>
-        </div>
-      </div>
-    </div>
+    </>
   );
 };
 

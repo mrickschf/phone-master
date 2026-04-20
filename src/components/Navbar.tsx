@@ -1,117 +1,166 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Phone, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import logo from "../assets/logos/phonemaster-logo.png";
-import badge from "../assets/logos/since.png";
+
+const NAV_LINKS = [
+  { to: "/repair", label: "Réparations" },
+  { to: "/about",  label: "À propos" },
+  { to: "/contact", label: "Contact" },
+];
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = React.useState(false);
+  const [scrolled, setScrolled] = React.useState(false);
+  const location = useLocation();
+
+  React.useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Ferme le menu mobile au changement de page
+  React.useEffect(() => { setIsOpen(false); }, [location]);
 
   return (
-    <nav className="fixed top-0 w-full z-50 bg-white/70 backdrop-blur-md shadow-md font-body">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16 items-center">
-          {/* Logo */}
-          <div className="flex items-center">
-            <Link to="/" className="flex items-center">
-              <motion.img
-                src={logo}
-                alt="Phone Master Logo"
-                className="h-16 w-auto object-contain md:h-48"
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 300 }}
-              />
-            </Link>
-          </div>
+    <nav
+      style={{ fontFamily: "'Inter', sans-serif" }}
+      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+        scrolled
+          ? "bg-white/90 backdrop-blur-md shadow-[0_1px_0_rgba(0,0,0,0.06)]"
+          : "bg-transparent"
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-5 sm:px-8">
+        <div className="flex items-center justify-between h-16">
 
-          {/* Menu Desktop avec badge juste avant les liens */}
+          {/* ── Logo / Brand ── */}
+          <Link to="/" className="flex items-center gap-2 group">
+            <span
+              style={{
+                fontFamily: "'Inter', sans-serif",
+                fontWeight: 800,
+                letterSpacing: "-0.04em",
+                fontSize: "1.25rem",
+                lineHeight: 1,
+                color: "#111",
+              }}
+            >
+              Phone<span style={{ color: "#0b6666" }}>Master</span>
+            </span>
+          </Link>
 
-          <div className="hidden md:flex items-center space-x-6">
-            <Link to="/about">
-              <motion.img
-                src={badge}
-                alt="Badge since 2014"
-                className="h-8 w-auto object-contain md:h-16"
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 300 }}
-              />
-            </Link>
-
-            {["/repair", "/contact"].map((path) => (
-              <motion.div
-                key={path}
-                whileHover={{ y: -2, scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
+          {/* ── Desktop links ── */}
+          <div className="hidden md:flex items-center gap-1">
+            {NAV_LINKS.map(({ to, label }) => {
+              const active = location.pathname === to;
+              return (
                 <Link
-                  to={path}
-                  className="text-gray-700 font-bold hover:text-[#c7e5c6]"
+                  key={to}
+                  to={to}
+                  style={{ fontFamily: "'Inter', sans-serif" }}
+                  className={`relative px-4 py-2 text-sm font-medium rounded-lg transition-colors duration-150 ${
+                    active
+                      ? "text-gray-900"
+                      : "text-gray-500 hover:text-gray-900 hover:bg-gray-100/70"
+                  }`}
                 >
-                  {path === "/repair" ? "Réparations" : "Contact"}
+                  {label}
+                  {active && (
+                    <motion.span
+                      layoutId="nav-underline"
+                      className="absolute bottom-0 left-3 right-3 h-0.5 bg-[#0b6666] rounded-full"
+                    />
+                  )}
                 </Link>
-              </motion.div>
-            ))}
+              );
+            })}
+          </div>
 
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="bg-[#c7e5c6] text-gray-700 font-bold px-4 py-2 rounded-md shadow hover:shadow-md transition-all"
+          {/* ── CTA desktop ── */}
+          <div className="hidden md:flex items-center gap-3">
+            <a
+              href="tel:0635175711"
+              style={{ fontFamily: "'Inter', sans-serif" }}
+              className="flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors px-3 py-2"
             >
-              <Phone className="h-4 w-4 inline mr-2" />
+              <Phone className="h-3.5 w-3.5 text-[#0b6666]" />
               06 35 17 57 11
-            </motion.button>
+            </a>
+            <motion.div whileHover={{ y: -1 }} whileTap={{ scale: 0.97 }}>
+              <Link
+                to="/repair"
+                style={{ fontFamily: "'Inter', sans-serif" }}
+                className="inline-flex items-center gap-1.5 bg-gray-950 text-white text-sm font-semibold px-5 py-2.5 rounded-full shadow-[0_1px_2px_rgba(0,0,0,0.1),0_3px_12px_rgba(0,0,0,0.12)] hover:shadow-[0_2px_4px_rgba(0,0,0,0.12),0_6px_20px_rgba(0,0,0,0.16)] transition-all duration-200"
+              >
+                Prendre RDV
+              </Link>
+            </motion.div>
           </div>
 
-          {/* Bouton mobile */}
-          <div className="md:hidden flex items-center">
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-700 hover:text-[#c7e5c6] transition-all"
-            >
-              {isOpen ? (
-                <X className="h-6 w-6" />
-              ) : (
-                <Menu className="h-6 w-6" />
-              )}
-            </button>
-          </div>
+          {/* ── Mobile burger ── */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="md:hidden p-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors"
+            aria-label="Menu"
+          >
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={isOpen ? "close" : "open"}
+                initial={{ rotate: -90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: 90, opacity: 0 }}
+                transition={{ duration: 0.15 }}
+              >
+                {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              </motion.div>
+            </AnimatePresence>
+          </button>
         </div>
       </div>
 
-      {/* Menu Mobile */}
+      {/* ── Mobile menu ── */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="md:hidden bg-white/90 backdrop-blur-md shadow-inner overflow-hidden"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2 }}
+            className="md:hidden bg-white/95 backdrop-blur-md border-t border-gray-100 shadow-lg"
           >
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-              {[
-                { to: "/repair", label: "Réparations" },
-                { to: "/about", label: "À propos" },
-                { to: "/contact", label: "Contact" },
-              ].map((item) => (
+            <div className="max-w-7xl mx-auto px-5 py-4 flex flex-col gap-1">
+              {NAV_LINKS.map(({ to, label }) => (
                 <Link
-                  key={item.to}
-                  to={item.to}
-                  className="block px-3 py-2 text-gray-700 hover:text-[#c7e5c6] font-medium transition-all"
-                  onClick={() => setIsOpen(false)}
+                  key={to}
+                  to={to}
+                  style={{ fontFamily: "'Inter', sans-serif" }}
+                  className={`px-4 py-3 rounded-xl text-sm font-medium transition-colors ${
+                    location.pathname === to
+                      ? "bg-gray-950 text-white"
+                      : "text-gray-700 hover:bg-gray-100"
+                  }`}
                 >
-                  {item.label}
+                  {label}
                 </Link>
               ))}
-              <div className="px-3 py-2">
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  className="w-full bg-[#c7e5c6] text-white px-4 py-2 rounded-md"
+              <div className="mt-2 pt-3 border-t border-gray-100 flex flex-col gap-2">
+                <a
+                  href="tel:0635175711"
+                  style={{ fontFamily: "'Inter', sans-serif" }}
+                  className="flex items-center gap-2 px-4 py-3 rounded-xl text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors"
                 >
-                  <Phone className="h-4 w-4 inline mr-2" />
+                  <Phone className="h-4 w-4 text-[#0b6666]" />
                   06 35 17 57 11
-                </motion.button>
+                </a>
+                <Link
+                  to="/repair"
+                  style={{ fontFamily: "'Inter', sans-serif" }}
+                  className="flex items-center justify-center bg-gray-950 text-white text-sm font-semibold px-5 py-3 rounded-xl"
+                >
+                  Prendre rendez-vous
+                </Link>
               </div>
             </div>
           </motion.div>

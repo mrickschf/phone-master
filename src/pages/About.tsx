@@ -57,7 +57,7 @@ const AboutPage = () => {
   return (
     <>
       <Helmet>
-        <title>À Propos de Phone Master - Expert Réparation Smartphone Gironde</title>
+        <title>À Propos de Phone Master - Expert Réparation Smartphone Bordeaux Métropole</title>
         <meta
           name="description"
           content="Découvrez Phone Master : 10 ans d'expérience en réparation de smartphones. Techniciens certifiés, pièces authentiques, garantie 6 mois, service à domicile."
@@ -103,7 +103,7 @@ const AboutPage = () => {
                 Trouvez un réparateur téléphone autour de vous
               </h2>
               <p className="text-white opacity-90">
-                Service disponible dans toute la Gironde
+                Service disponible sur Bordeaux Métropole
               </p>
             </div>
           </div>
@@ -184,7 +184,7 @@ const AboutPage = () => {
                 <p className="text-gray-600">
                   Trouvez facilement un réparateur téléphone autour de vous
                   grâce à nos techniciens certifiés, disponibles dans toute la
-                  Gironde. (Bordeaux, et alentours)
+                  Bordeaux Métropole
                 </p>
               </div>
             </div>
