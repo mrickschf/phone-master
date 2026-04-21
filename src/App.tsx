@@ -67,18 +67,22 @@ function App() {
               element={<LocalPage city="Léognan" />}
             />
 
-            {/* Nouvelles villes - Expansion SEO */}
+            {/* Nouvelles villes Bordeaux Métropole */}
             <Route
-              path="/reparation-smartphone-libourne"
-              element={<LocalPage city="Libourne" />}
+              path="/reparation-smartphone-cenon"
+              element={<LocalPage city="Cenon" />}
             />
             <Route
-              path="/reparation-telephone-saint-medard-en-jalles"
-              element={<LocalPage city="Saint-Médard-en-Jalles" />}
+              path="/reparation-smartphone-floirac"
+              element={<LocalPage city="Floirac" />}
             />
             <Route
-              path="/reparation-smartphone-lormont"
-              element={<LocalPage city="Lormont" />}
+              path="/reparation-smartphone-le-bouscat"
+              element={<LocalPage city="Le Bouscat" />}
+            />
+            <Route
+              path="/reparation-smartphone-le-haillan"
+              element={<LocalPage city="Le Haillan" />}
             />
           </Routes>
         </main>

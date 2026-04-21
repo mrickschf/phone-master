@@ -25,16 +25,17 @@ interface LocalPageProps {
   city: string;
 }
 
+const SPECIALTIES = "iPhone, Samsung Galaxy et Huawei";
+const ISSUES = "écrans cassés, batterie, connecteur de charge et caméra";
+
 const cityData: Record<
   string,
   {
     title: string;
     description: string;
     canonical: string;
-    specialties: string;
-    commonIssues: string;
-    testimonial: string;
-    testimonialAuthor: string;
+    testimonial?: string;
+    testimonialAuthor?: string;
   }
 > = {
   Bordeaux: {
@@ -42,88 +43,99 @@ const cityData: Record<
     description:
       "Réparation smartphone à domicile à Bordeaux : écran cassé, batterie, connecteur. iPhone, Samsung, Huawei. Devis gratuit, garantie 6 mois. 6j/7 — 06 35 17 57 11.",
     canonical: "https://www.phone-master.fr/reparation-smartphone-bordeaux",
-    specialties: "iPhone et Samsung Galaxy",
-    commonIssues: "écrans cassés et problèmes de batterie",
     testimonial:
-      "Service impeccable et rapide à mon domicile en centre-ville. Très professionnel !",
-    testimonialAuthor: "Client de Bordeaux",
+      "J'ai fait appel à Phone Master pour changer la batterie de mon Samsung à Bordeaux. Intervention rapide à domicile, prix honnête et résultat impeccable.",
+    testimonialAuthor: "Thomas S., Bordeaux",
   },
   Talence: {
     title: "Réparation téléphone Talence à domicile — Phone Master",
     description:
       "Technicien smartphone à Talence : écran cassé, batterie, connecteur de charge. Intervention rapide à domicile, garantie 6 mois. Devis gratuit — 06 35 17 57 11.",
     canonical: "https://www.phone-master.fr/reparation-telephone-talence",
-    specialties: "tous modèles Android et iPhone",
-    commonIssues: "problèmes de connecteur de charge et écrans cassés",
     testimonial:
-      "Intervention à domicile le jour même, prix très raisonnable.",
-    testimonialAuthor: "Client de Talence",
+      "Réparation de mon iPhone 13 à domicile à Talence, écran changé en 30 minutes, prix correct et garantie 6 mois, je recommande.",
+    testimonialAuthor: "Anthony P., Talence",
   },
   Pessac: {
     title: "Réparateur iPhone Samsung Pessac à domicile — Phone Master",
     description:
       "Réparation iPhone et Samsung à Pessac : remplacement écran, batterie, caméra. Déplacement gratuit, garantie 6 mois. Disponible 6j/7 — 06 35 17 57 11.",
     canonical: "https://www.phone-master.fr/reparateur-iphone-pessac",
-    specialties: "iPhone et Huawei",
-    commonIssues: "batterie et problèmes d'écran tactile",
     testimonial:
-      "Réparation parfaite de mon iPhone en moins d'une heure.",
-    testimonialAuthor: "Client de Pessac",
+      "J'ai fait appel à Phone Master pour changer la batterie de mon Samsung à Bordeaux. Intervention rapide à domicile, prix honnête et résultat impeccable.",
+    testimonialAuthor: "Thomas S., Bordeaux",
   },
   Bègles: {
     title: "Changement écran téléphone Bègles à domicile — Phone Master",
     description:
       "Changement d'écran et réparation smartphone à Bègles : iPhone, Samsung, Huawei. Intervention rapide à domicile, garantie 6 mois. Devis gratuit — 06 35 17 57 11.",
     canonical: "https://www.phone-master.fr/changement-ecran-telephone-begles",
-    specialties: "toutes marques de smartphones",
-    commonIssues: "écrans cassés et batteries défaillantes",
-    testimonial: "Technicien rapide et professionnel, je recommande !",
-    testimonialAuthor: "Client de Bègles",
+    testimonial:
+      "Réparation de mon iPhone 13 à domicile à Talence, écran changé en 30 minutes, prix correct et garantie 6 mois, je recommande.",
+    testimonialAuthor: "Anthony P., Talence",
   },
   Mérignac: {
     title: "Réparateur mobile Mérignac à domicile — Phone Master",
     description:
       "Réparation mobile à Mérignac : écran, batterie, connecteur. Technicien certifié, déplacement gratuit, garantie 6 mois. Disponible 6j/7 — 06 35 17 57 11.",
     canonical: "https://www.phone-master.fr/reparateur-mobile-merignac",
-    specialties: "iPhone et Samsung Galaxy",
-    commonIssues: "écrans brisés et autonomie batterie",
     testimonial:
-      "Très réactif, est venu le soir même. Excellent travail !",
-    testimonialAuthor: "Client de Mérignac",
+      "J'ai fait appel à Phone Master pour changer la batterie de mon Samsung à Bordeaux. Intervention rapide à domicile, prix honnête et résultat impeccable.",
+    testimonialAuthor: "Thomas S., Bordeaux",
   },
   Gradignan: {
     title: "Réparation mobile Gradignan à domicile — Phone Master",
     description:
       "Service de réparation mobile à Gradignan : remplacement écran, batterie, port de charge. Intervention à domicile, garantie 6 mois. Devis gratuit — 06 35 17 57 11.",
-    canonical:
-      "https://www.phone-master.fr/service-reparation-mobile-gradignan",
-    specialties: "toutes marques de smartphones",
-    commonIssues: "écrans cassés et problèmes de charge",
-    testimonial: "Intervention rapide et soignée, prix honnête.",
-    testimonialAuthor: "Client de Gradignan",
+    canonical: "https://www.phone-master.fr/service-reparation-mobile-gradignan",
+    testimonial:
+      "Réparation de mon iPhone 13 à domicile à Talence, écran changé en 30 minutes, prix correct et garantie 6 mois, je recommande.",
+    testimonialAuthor: "Anthony P., Talence",
   },
   "Villenave-d'Ornon": {
     title: "Réparation écran iPhone Villenave-d'Ornon — Phone Master",
     description:
       "Réparation iPhone et smartphone à Villenave-d'Ornon : écran cassé, batterie, caméra. Technicien à domicile, garantie 6 mois. Devis gratuit — 06 35 17 57 11.",
-    canonical:
-      "https://www.phone-master.fr/reparation-ecran-iphone-villenave-dornon",
-    specialties: "iPhone et Samsung",
-    commonIssues: "écrans fissurés et batteries usées",
+    canonical: "https://www.phone-master.fr/reparation-ecran-iphone-villenave-dornon",
     testimonial:
-      "Parfait du début à la fin, téléphone réparé en 30 min !",
-    testimonialAuthor: "Client de Villenave-d'Ornon",
+      "J'ai fait appel à Phone Master pour changer la batterie de mon Samsung à Bordeaux. Intervention rapide à domicile, prix honnête et résultat impeccable.",
+    testimonialAuthor: "Thomas S., Bordeaux",
   },
-  Léognan: {
-    title: "Réparation smartphone Léognan à domicile — Phone Master",
+  Cenon: {
+    title: "Réparation smartphone Cenon à domicile — Phone Master",
     description:
-      "Technicien réparation smartphone à Léognan : écran, batterie, connecteur. Déplacement gratuit, garantie 6 mois. Disponible 6j/7 — 06 35 17 57 11.",
-    canonical: "https://www.phone-master.fr/reparation-smartphone-leognan",
-    specialties: "toutes marques de smartphones",
-    commonIssues: "écrans cassés et problèmes de batterie",
+      "Technicien réparation smartphone à Cenon : écran cassé, batterie, connecteur. iPhone, Samsung, Huawei. Déplacement gratuit, garantie 6 mois. Devis gratuit — 06 35 17 57 11.",
+    canonical: "https://www.phone-master.fr/reparation-smartphone-cenon",
     testimonial:
-      "Super service, rapide et efficace, je recommande !",
-    testimonialAuthor: "Client de Léognan",
+      "Réparation de mon iPhone 13 à domicile à Talence, écran changé en 30 minutes, prix correct et garantie 6 mois, je recommande.",
+    testimonialAuthor: "Anthony P., Talence",
+  },
+  Floirac: {
+    title: "Réparation smartphone Floirac à domicile — Phone Master",
+    description:
+      "Technicien réparation smartphone à Floirac : écran cassé, batterie, connecteur. iPhone, Samsung, Huawei. Déplacement gratuit, garantie 6 mois. Devis gratuit — 06 35 17 57 11.",
+    canonical: "https://www.phone-master.fr/reparation-smartphone-floirac",
+    testimonial:
+      "J'ai fait appel à Phone Master pour changer la batterie de mon Samsung à Bordeaux. Intervention rapide à domicile, prix honnête et résultat impeccable.",
+    testimonialAuthor: "Thomas S., Bordeaux",
+  },
+  "Le Bouscat": {
+    title: "Réparation smartphone Le Bouscat à domicile — Phone Master",
+    description:
+      "Technicien réparation smartphone au Bouscat : écran cassé, batterie, connecteur. iPhone, Samsung, Huawei. Déplacement gratuit, garantie 6 mois. Devis gratuit — 06 35 17 57 11.",
+    canonical: "https://www.phone-master.fr/reparation-smartphone-le-bouscat",
+    testimonial:
+      "Réparation de mon iPhone 13 à domicile à Talence, écran changé en 30 minutes, prix correct et garantie 6 mois, je recommande.",
+    testimonialAuthor: "Anthony P., Talence",
+  },
+  "Le Haillan": {
+    title: "Réparation smartphone Le Haillan à domicile — Phone Master",
+    description:
+      "Technicien réparation smartphone au Haillan : écran cassé, batterie, connecteur. iPhone, Samsung, Huawei. Déplacement gratuit, garantie 6 mois. Devis gratuit — 06 35 17 57 11.",
+    canonical: "https://www.phone-master.fr/reparation-smartphone-le-haillan",
+    testimonial:
+      "J'ai fait appel à Phone Master pour changer la batterie de mon Samsung à Bordeaux. Intervention rapide à domicile, prix honnête et résultat impeccable.",
+    testimonialAuthor: "Thomas S., Bordeaux",
   },
 };
 
@@ -135,7 +147,10 @@ const allCities = [
   { name: "Mérignac", path: "/reparateur-mobile-merignac" },
   { name: "Gradignan", path: "/service-reparation-mobile-gradignan" },
   { name: "Villenave-d'Ornon", path: "/reparation-ecran-iphone-villenave-dornon" },
-  { name: "Léognan", path: "/reparation-smartphone-leognan" },
+  { name: "Cenon", path: "/reparation-smartphone-cenon" },
+  { name: "Floirac", path: "/reparation-smartphone-floirac" },
+  { name: "Le Bouscat", path: "/reparation-smartphone-le-bouscat" },
+  { name: "Le Haillan", path: "/reparation-smartphone-le-haillan" },
 ];
 
 const services = [
@@ -147,11 +162,11 @@ const services = [
 ];
 
 const reasons = [
-  { icon: Wrench, label: "Technicien certifié", desc: "Pièces de qualité, 10 ans d'expérience" },
+  { icon: Wrench, label: "Technicien certifié", desc: "Pièces de qualité premium, 10 ans d'expérience" },
   { icon: Car, label: "Déplacement gratuit", desc: "On vient chez vous, sans supplément" },
-  { icon: BadgeEuro, label: "Devis gratuit", desc: "Sans engagement, transparent" },
+  { icon: BadgeEuro, label: "Pas d'acompte", desc: "Vous payez après réparation réussie" },
   { icon: ShieldCheck, label: "Garantie 6 mois", desc: "Pièces et main d'œuvre" },
-  { icon: Timer, label: "30 minutes en moyenne", desc: "Réparation rapide sur place" },
+  { icon: Timer, label: "30 min à 1h", desc: "Réparation rapide sur place" },
   { icon: CalendarDays, label: "Disponible 6j/7", desc: "Lun–Sam · 8h – 21h30" },
 ];
 
@@ -162,11 +177,11 @@ const faqs = (city: string) => [
   },
   {
     q: `Combien de temps prend une réparation à domicile à ${city} ?`,
-    a: `La plupart des réparations à ${city} sont effectuées en 30 minutes directement chez vous. Les réparations plus complexes peuvent prendre jusqu'à 1 heure, toujours en une seule visite.`,
+    a: `La plupart des réparations à ${city} sont effectuées en 30 minutes à 1 heure directement chez vous, en une seule visite.`,
   },
   {
     q: `Vous déplacez-vous vraiment à ${city} gratuitement ?`,
-    a: `Oui, le déplacement est totalement gratuit à ${city} et dans toute la Bordeaux Métropole. Vous ne payez que la réparation, garantie 6 mois pièces et main d'œuvre.`,
+    a: `Oui, le déplacement est totalement gratuit à ${city} et dans toute Bordeaux Métropole. Vous ne payez que la réparation, garantie 6 mois pièces et main d'œuvre. Aucun acompte.`,
   },
 ];
 
@@ -189,10 +204,6 @@ const LocalPage: React.FC<LocalPageProps> = ({ city }) => {
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
       .replace(/\s+/g, "-")}`,
-    specialties: "toutes marques de smartphones",
-    commonIssues: "tous types de problèmes",
-    testimonial: "",
-    testimonialAuthor: "",
   };
 
   const nearbyCities = allCities.filter((c) => c.name !== city).slice(0, 4);
@@ -244,7 +255,7 @@ const LocalPage: React.FC<LocalPageProps> = ({ city }) => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             >
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0b6666]/8 border border-[#0b6666]/15 text-[#0b6666] text-sm font-medium mb-6"
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[#0b6666] text-sm font-medium mb-6 border border-[#0b6666]/15"
                 style={{ background: "rgba(11,102,102,0.07)" }}>
                 <MapPin className="w-3.5 h-3.5" />
                 Bordeaux Métropole
@@ -257,9 +268,9 @@ const LocalPage: React.FC<LocalPageProps> = ({ city }) => {
 
               <p className="text-lg text-gray-500 max-w-xl mb-8">
                 Technicien à domicile, spécialisé{" "}
-                <strong className="text-gray-700">{data.specialties}</strong>.
+                <strong className="text-gray-700">{SPECIALTIES}</strong>.
                 Intervention pour{" "}
-                <strong className="text-gray-700">{data.commonIssues}</strong>.
+                <strong className="text-gray-700">{ISSUES}</strong>.
               </p>
 
               <div className="flex flex-wrap gap-3">
@@ -373,6 +384,13 @@ const LocalPage: React.FC<LocalPageProps> = ({ city }) => {
                 <svg className="w-8 h-8 text-[#72b9bb] mx-auto mb-4 opacity-60" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
                 </svg>
+                <div className="flex justify-center gap-1 mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <svg key={i} className="w-4 h-4 text-amber-400 fill-current" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  ))}
+                </div>
                 <p className="text-xl text-white font-medium leading-relaxed mb-4">
                   "{data.testimonial}"
                 </p>
@@ -470,7 +488,7 @@ const LocalPage: React.FC<LocalPageProps> = ({ city }) => {
                   Besoin d'un réparateur à {city} ?
                 </p>
                 <p className="text-gray-400 text-sm">
-                  Disponible 6j/7 · Devis gratuit · Déplacement offert
+                  Disponible 6j/7 · Devis gratuit · Déplacement offert · Sans acompte
                 </p>
               </div>
               <div className="flex flex-wrap gap-3 shrink-0">

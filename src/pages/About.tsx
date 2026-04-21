@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
+import { motion } from "framer-motion";
 import {
   ChevronDown,
-  ChevronUp,
   Award,
   Clock,
   CheckCircle,
@@ -10,49 +10,52 @@ import {
   ShieldCheck,
   Smartphone,
   MapPin,
-  ThumbsUp,
+  Car,
+  BadgeEuro,
+  ArrowRight,
+  Phone,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
+const container = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1, transition: { staggerChildren: 0.09 } },
+};
+const fadeUp = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
+};
+
+const faqs = [
+  {
+    question: "Combien de temps prend la réparation d'un téléphone ?",
+    answer:
+      "La durée varie selon le type de problème. Un remplacement de batterie prend environ 30 minutes, une réparation d'écran 1 heure, les caméras et connecteurs 45 minutes. La réparation se fait sur place, en une seule visite.",
+  },
+  {
+    question: "Quelles marques de téléphones réparez-vous ?",
+    answer:
+      "iPhone (toutes générations), Samsung Galaxy et Huawei. Pour toute autre marque, contactez-moi pour confirmer la disponibilité des pièces.",
+  },
+  {
+    question: "Offrez-vous une garantie sur les réparations ?",
+    answer:
+      "Oui, toutes les réparations sont garanties 6 mois. Cette garantie couvre les défauts sur les pièces installées et la main d'œuvre — hors casse et oxydation.",
+  },
+  {
+    question: "Est-il moins cher de réparer ou de remplacer mon téléphone ?",
+    answer:
+      "Dans la grande majorité des cas, réparer coûte 15 à 30% du prix d'un appareil neuf. C'est aussi un geste écologique qui prolonge la vie de votre smartphone.",
+  },
+  {
+    question: "Dois-je payer à l'avance ?",
+    answer:
+      "Non. Vous ne payez qu'après la réparation effectuée et réussie. Le diagnostic et le déplacement sont gratuits, sans engagement.",
+  },
+];
+
 const AboutPage = () => {
-  const [expandedFAQ, setExpandedFAQ] = useState<number | null>(null);
-
-  const toggleFAQ = (index: number) => {
-    if (expandedFAQ === index) {
-      setExpandedFAQ(null);
-    } else {
-      setExpandedFAQ(index);
-    }
-  };
-
-  const faqs = [
-    {
-      question: "Combien de temps prend la réparation d'un téléphone ?",
-      answer:
-        "La durée de réparation varie selon le type de problème. Une réparation d'écran prend généralement 1 heure, un remplacement de batterie environ 30 minutes, tandis que les problèmes liés aux caméras, ports de charge ou autres composants nécessitent en moyenne 45 minutes. Nous privilégions les réparations express tout en garantissant un travail de qualité.",
-    },
-    {
-      question:
-        "Comment trouver un réparateur de téléphone qualifié près de chez moi ?",
-      answer:
-        "Pour trouver le meilleur réparateur téléphone autour de vous, vérifiez les avis clients, assurez-vous que le technicien utilise des pièces de qualité et offre une garantie sur les réparations. Notre service vous connecte aux meilleurs réparateurs dans votre région, tous certifiés et expérimentés.",
-    },
-    {
-      question: "Quelles marques de téléphones pouvez-vous réparer ?",
-      answer:
-        "Nos techniciens sont formés pour réparer toutes les grandes marques de smartphones : Apple (iPhone), Samsung (Galaxy) et Huawei. Que vous ayez besoin d'une réparation d'iPhone ou d'un autre appareil, nous avons l'expertise nécessaire.",
-    },
-    {
-      question: "Offrez-vous une garantie sur les réparations ?",
-      answer:
-        "Absolument ! Toutes nos réparations sont garanties 6 mois. Cette garantie couvre les défauts potentiels sur les pièces installées (hors casse et oxydation), et la main d'œuvre. Notre engagement qualité vous assure une tranquillité d'esprit après chaque réparation.",
-    },
-    {
-      question: "Est-il moins cher de réparer ou de remplacer mon téléphone ?",
-      answer:
-        "Dans la plupart des cas, la réparation est nettement plus économique que le remplacement, surtout pour les smartphones modernes. Une réparation d'écran ou de batterie représente généralement 15 à 30% du prix d'un nouvel appareil. De plus, la réparation est un choix écologique qui prolonge la vie de votre appareil.",
-    },
-  ];
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   return (
     <>
@@ -60,370 +63,283 @@ const AboutPage = () => {
         <title>À Propos de Phone Master - Expert Réparation Smartphone Bordeaux Métropole</title>
         <meta
           name="description"
-          content="Découvrez Phone Master : 10 ans d'expérience en réparation de smartphones. Techniciens certifiés, pièces authentiques, garantie 6 mois, service à domicile."
+          content="Technicien certifié en réparation smartphone à domicile sur Bordeaux Métropole. 10 ans d'expérience, pièces de qualité premium, garantie 6 mois, sans acompte."
         />
         <link rel="canonical" href="https://www.phone-master.fr/about" />
       </Helmet>
-      <div className="min-h-screen bg-gray-50 py-12 pt-20 font-body">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Hero Section */}
-        <div className="bg-white rounded-lg shadow-lg overflow-hidden mb-10">
-          <div className="p-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">
-              Expert en Réparation Téléphone - Votre Partenaire de Confiance
-            </h1>
-            <p className="text-lg text-gray-700 mb-6">
-              Besoin d'une réparation téléphone rapide et fiable ? Notre équipe
-              de techniciens certifiés est là pour résoudre tous vos problèmes
-              de smartphone, qu'il s'agisse d'un écran cassé, d'une batterie
-              défaillante ou d'un problème plus complexe.
-            </p>
-            <div className="flex flex-wrap gap-4 mb-8">
-              <div className="flex items-center">
-                <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                <span>Réparation express</span>
-              </div>
-              <div className="flex items-center">
-                <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                <span>Pièces authentiques</span>
-              </div>
-              <div className="flex items-center">
-                <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                <span>Garantie 6 mois</span>
-              </div>
-              <div className="flex items-center">
-                <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                <span>Devis gratuit</span>
-              </div>
-            </div>
-          </div>
-          <div className="bg-gradient-to-r from-[#c7e5c6] to-[#9ed89d] p-8 flex justify-between items-center">
-            <div>
-              <h2 className="text-xl font-semibold text-white mb-2">
-                Trouvez un réparateur téléphone autour de vous
-              </h2>
-              <p className="text-white opacity-90">
-                Service disponible sur Bordeaux Métropole
-              </p>
-            </div>
-          </div>
-        </div>
 
-        {/* Notre expertise */}
-        <div className="bg-white rounded-lg shadow-lg p-8 mb-10">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
-            Notre Expertise en Réparation de Téléphones
-          </h2>
+      <div className="min-h-screen bg-white" style={{ fontFamily: "'Inter', sans-serif" }}>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-            <div className="flex">
-              <div className="flex-shrink-0 mr-4">
-                <div className="bg-[#c7e5c6] rounded-full p-3">
-                  <Smartphone className="h-6 w-6 text-white" />
-                </div>
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold mb-2">
-                  Réparation d'écrans
-                </h3>
-                <p className="text-gray-600">
-                  Un écran fissuré ou qui ne répond plus ? Nos techniciens
-                  remplacent votre écran avec des pièces de haute qualité
-                  compatibles avec toutes les marques, y compris la réparation
-                  iPhone et Samsung.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex">
-              <div className="flex-shrink-0 mr-4">
-                <div className="bg-[#c7e5c6] rounded-full p-3">
-                  <Wrench className="h-6 w-6 text-white" />
-                </div>
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold mb-2">
-                  Remplacement de batterie
-                </h3>
-                <p className="text-gray-600">
-                  Batterie qui se décharge rapidement ? Nous proposons des
-                  remplacements de batterie pour prolonger la vie de votre
-                  appareil et restaurer son autonomie d'origine.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex">
-              <div className="flex-shrink-0 mr-4">
-                <div className="bg-[#c7e5c6] rounded-full p-3">
-                  <Clock className="h-6 w-6 text-white" />
-                </div>
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold mb-2">
-                  Réparation express
-                </h3>
-                <p className="text-gray-600">
-                  Besoin de votre téléphone rapidement ? La plupart de nos
-                  réparations sont effectuées en moins d'une heure, vous
-                  permettant de récupérer votre appareil le jour même.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex">
-              <div className="flex-shrink-0 mr-4">
-                <div className="bg-[#c7e5c6] rounded-full p-3">
-                  <MapPin className="h-6 w-6 text-white" />
-                </div>
-              </div>
-              <div>
-                <h3 className="text-lg font-semibold mb-2">
-                  Service de proximité
-                </h3>
-                <p className="text-gray-600">
-                  Trouvez facilement un réparateur téléphone autour de vous
-                  grâce à nos techniciens certifiés, disponibles dans toute la
-                  Bordeaux Métropole
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="text-center">
-            <Link to="/repair">
-              <button className="bg-[#c7e5c6] text-white px-6 py-3 rounded-lg font-medium hover:bg-[#a8d4a4] transition-colors">
-                Découvrir tous nos services
-              </button>
-            </Link>
-          </div>
-        </div>
-
-        {/* Processus de réparation - Version unifiée */}
-        <div className="bg-white rounded-lg shadow-lg p-6 mb-10">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
-            Notre Processus de Réparation Téléphone
-          </h2>
-
-          {/* Version Mobile */}
-          <div className="md:hidden space-y-8">
-            {[
-              {
-                title: "1. Diagnostic gratuit",
-                description:
-                  "Nous identifions précisément le problème de votre appareil et vous proposons la meilleure solution.",
-              },
-              {
-                title: "2. Devis transparent",
-                description:
-                  "Vous recevez un devis clair sans frais cachés, que vous êtes libre d'accepter ou non.",
-              },
-              {
-                title: "3. Réparation par des experts",
-                description:
-                  "Nos techniciens qualifiés réparent votre téléphone avec des pièces de qualité et des outils professionnels.",
-              },
-              {
-                title: "4. Tests et garantie",
-                description:
-                  "Votre appareil est minutieusement testé avant d'être rendu, avec une garantie de 6 mois sur toutes les réparations.",
-              },
-            ].map((step, index) => (
-              <div key={index} className="flex items-start">
-                <div className="bg-[#c7e5c6] rounded-full h-10 w-10 flex-shrink-0 flex items-center justify-center text-white font-bold mr-4">
-                  {index + 1}
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold mb-1">{step.title}</h3>
-                  <p className="text-gray-600">{step.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Version Desktop */}
-          <div className="hidden md:block relative">
-            {/* Timeline line */}
-            <div className="absolute h-full w-0.5 bg-[#c7e5c6] left-6 top-0 transform -translate-x-1/2 md:left-1/2"></div>
-
-            {/* Steps */}
-            <div className="space-y-12">
-              <div className="relative flex flex-col md:flex-row">
-                <div className="md:w-1/2 md:pr-8 md:text-right mb-4 md:mb-0">
-                  <h3 className="text-lg font-semibold mb-1">
-                    Diagnostic gratuit
-                  </h3>
-                  <p className="text-gray-600">
-                    Nous identifions précisément le problème de votre appareil
-                    et vous proposons la meilleure solution.
-                  </p>
-                </div>
-                <div className="z-10 absolute left-6 md:left-1/2 transform -translate-x-1/2 flex items-center justify-center">
-                  <div className="bg-[#c7e5c6] rounded-full h-12 w-12 flex items-center justify-center text-white font-bold">
-                    1
-                  </div>
-                </div>
-                <div className="md:w-1/2 md:pl-8"></div>
-              </div>
-
-              <div className="relative flex flex-col md:flex-row">
-                <div className="md:w-1/2 md:pr-8"></div>
-                <div className="z-10 absolute left-6 md:left-1/2 transform -translate-x-1/2 flex items-center justify-center">
-                  <div className="bg-[#c7e5c6] rounded-full h-12 w-12 flex items-center justify-center text-white font-bold">
-                    2
-                  </div>
-                </div>
-                <div className="md:w-1/2 md:pl-8 mb-4 md:mb-0">
-                  <h3 className="text-lg font-semibold mb-1">
-                    Devis transparent
-                  </h3>
-                  <p className="text-gray-600">
-                    Vous recevez un devis clair sans frais cachés, que vous êtes
-                    libre d'accepter ou non.
-                  </p>
-                </div>
-              </div>
-
-              <div className="relative flex flex-col md:flex-row">
-                <div className="md:w-1/2 md:pr-8 md:text-right mb-4 md:mb-0">
-                  <h3 className="text-lg font-semibold mb-1">
-                    Réparation par des experts
-                  </h3>
-                  <p className="text-gray-600">
-                    Nos techniciens qualifiés réparent votre téléphone avec des
-                    pièces de qualité et des outils professionnels.
-                  </p>
-                </div>
-                <div className="z-10 absolute left-6 md:left-1/2 transform -translate-x-1/2 flex items-center justify-center">
-                  <div className="bg-[#c7e5c6] rounded-full h-12 w-12 flex items-center justify-center text-white font-bold">
-                    3
-                  </div>
-                </div>
-                <div className="md:w-1/2 md:pl-8"></div>
-              </div>
-
-              <div className="relative flex flex-col md:flex-row">
-                <div className="md:w-1/2 md:pr-8"></div>
-                <div className="z-10 absolute left-6 md:left-1/2 transform -translate-x-1/2 flex items-center justify-center">
-                  <div className="bg-[#c7e5c6] rounded-full h-12 w-12 flex items-center justify-center text-white font-bold">
-                    4
-                  </div>
-                </div>
-                <div className="md:w-1/2 md:pl-8">
-                  <h3 className="text-lg font-semibold mb-1">
-                    Tests et garantie
-                  </h3>
-                  <p className="text-gray-600">
-                    Votre appareil est minutieusement testé avant d'être rendu,
-                    avec une garantie de 6 mois sur toutes les réparations.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Pourquoi nous choisir */}
-        <div className="bg-white rounded-lg shadow-lg p-8 mb-10">
-          <h2 className="text-2xl font-bold text-gray-900 mb-8 text-center">
-            Pourquoi Choisir Notre Service de Réparation Téléphone ?
-          </h2>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-gray-50 rounded-lg p-6 text-center">
-              <div className="flex justify-center mb-4">
-                <ShieldCheck className="h-12 w-12 text-[#c7e5c6]" />
-              </div>
-              <h3 className="text-lg font-semibold mb-2">Qualité garantie</h3>
-              <p className="text-gray-600">
-                Toutes nos réparations sont couvertes par une garantie de 6 mois
-                pour vous assurer une tranquillité d'esprit totale.
-              </p>
-            </div>
-
-            <div className="bg-gray-50 rounded-lg p-6 text-center">
-              <div className="flex justify-center mb-4">
-                <Award className="h-12 w-12 text-[#c7e5c6]" />
-              </div>
-              <h3 className="text-lg font-semibold mb-2">
-                Techniciens certifiés
-              </h3>
-              <p className="text-gray-600">
-                Nos réparateurs téléphone sont tous formés et certifiés pour
-                intervenir sur toutes les marques de smartphones.
-              </p>
-            </div>
-
-            <div className="bg-gray-50 rounded-lg p-6 text-center">
-              <div className="flex justify-center mb-4">
-                <ThumbsUp className="h-12 w-12 text-[#c7e5c6]" />
-              </div>
-              <h3 className="text-lg font-semibold mb-2">
-                Satisfaction client
-              </h3>
-              <p className="text-gray-600">
-                Plus de 95% de nos clients nous recommandent pour la qualité de
-                nos services de réparation téléphone.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* FAQ */}
-        <div className="bg-white rounded-lg shadow-lg p-8 mb-10">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
-            Questions Fréquentes sur la Réparation Téléphone
-          </h2>
-
-          <div className="space-y-4">
-            {faqs.map((faq, index) => (
+        {/* ── HERO ── */}
+        <section className="pt-32 pb-20 px-4 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#0b6666]/5 rounded-full blur-3xl translate-x-1/3 -translate-y-1/3 pointer-events-none" />
+          <div className="max-w-4xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            >
               <div
-                key={index}
-                className="border border-gray-200 rounded-lg overflow-hidden"
+                className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-[#0b6666] text-sm font-medium mb-6 border border-[#0b6666]/15"
+                style={{ background: "rgba(11,102,102,0.07)" }}
               >
-                <button
-                  className="w-full flex justify-between items-center p-4 text-left font-medium hover:bg-gray-50"
-                  onClick={() => toggleFAQ(index)}
-                >
-                  {faq.question}
-                  {expandedFAQ === index ? (
-                    <ChevronUp className="h-5 w-5 text-gray-500" />
-                  ) : (
-                    <ChevronDown className="h-5 w-5 text-gray-500" />
-                  )}
-                </button>
-                {expandedFAQ === index && (
-                  <div className="p-4 bg-gray-50 border-t border-gray-200">
-                    <p className="text-gray-600">{faq.answer}</p>
-                  </div>
-                )}
+                <MapPin className="w-3.5 h-3.5" />
+                Bordeaux Métropole
               </div>
-            ))}
+              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 tracking-tight leading-tight mb-4">
+                Expert en réparation<br />
+                <span className="text-[#0b6666]">smartphone à domicile</span>
+              </h1>
+              <p className="text-lg text-gray-500 max-w-xl mb-8">
+                Technicien certifié, spécialisé iPhone, Samsung Galaxy et Huawei.
+                Intervention rapide sur Bordeaux Métropole depuis plus de 10 ans.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <motion.a
+                  href="tel:0635175711"
+                  whileHover={{ y: -2 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="inline-flex items-center gap-2 bg-gray-950 text-white px-6 py-3 rounded-xl font-semibold text-sm shadow-[0_2px_12px_rgba(0,0,0,0.18)] hover:shadow-[0_4px_20px_rgba(0,0,0,0.24)] transition-all"
+                >
+                  <Phone className="w-4 h-4" />
+                  06 35 17 57 11
+                </motion.a>
+                <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.97 }}>
+                  <Link
+                    to="/repair"
+                    className="inline-flex items-center gap-2 bg-white text-gray-700 px-6 py-3 rounded-xl font-semibold text-sm border border-gray-200 hover:border-gray-300 transition-all"
+                  >
+                    Prendre rendez-vous
+                    <ArrowRight className="w-4 h-4 opacity-60" />
+                  </Link>
+                </motion.div>
+              </div>
+            </motion.div>
           </div>
-        </div>
+        </section>
 
-        {/* CTA Section */}
-        <div className="bg-gradient-to-r from-[#c7e5c6] to-[#9ed89d] rounded-lg shadow-lg p-8 text-center">
-          <h2 className="text-2xl font-bold text-white mb-4">
-            Besoin d'une réparation téléphone dès aujourd'hui ?
-          </h2>
-          <p className="text-white opacity-90 mb-6 max-w-2xl mx-auto">
-            Ne laissez pas un écran cassé ou une batterie défectueuse vous
-            gêner. Nos experts en réparation téléphone sont prêts à redonner vie
-            à votre appareil rapidement et efficacement.
-          </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <div className="bg-white text-[#9ed89d] px-6 py-3 rounded-lg font-medium">
-              Trouver un réparateur près de chez moi
-            </div>
-            <Link to="/booking">
-              <button className="bg-transparent border-2 border-white text-white px-6 py-3 rounded-lg font-medium hover:bg-white hover:bg-opacity-10 transition-colors">
-                Prendre rendez-vous
-              </button>{" "}
-            </Link>
+        {/* ── POINTS FORTS ── */}
+        <section className="py-16 px-4 bg-gray-50">
+          <div className="max-w-4xl mx-auto">
+            <motion.div
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: "-60px" }}
+              variants={container}
+            >
+              <motion.h2 variants={fadeUp} className="text-2xl font-bold text-gray-900 mb-8">
+                Pourquoi choisir Phone Master ?
+              </motion.h2>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {[
+                  { icon: Car, label: "Déplacement gratuit", desc: "Je viens chez vous, sans supplément" },
+                  { icon: BadgeEuro, label: "Pas d'acompte", desc: "Vous payez après réparation réussie" },
+                  { icon: ShieldCheck, label: "Garantie 6 mois", desc: "Pièces et main d'œuvre" },
+                  { icon: Clock, label: "En 1h maximum", desc: "Réparation rapide sur place" },
+                  { icon: Award, label: "Technicien certifié", desc: "10 ans d'expérience" },
+                  { icon: Smartphone, label: "iPhone · Samsung · Huawei", desc: "Toutes générations" },
+                ].map(({ icon: Icon, label, desc }) => (
+                  <motion.div
+                    key={label}
+                    variants={fadeUp}
+                    className="flex items-start gap-4 bg-white rounded-2xl border border-gray-100 p-5 shadow-sm"
+                  >
+                    <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 mt-0.5" style={{ background: "rgba(11,102,102,0.08)" }}>
+                      <Icon className="w-4 h-4 text-[#0b6666]" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-gray-900">{label}</p>
+                      <p className="text-xs text-gray-500 mt-0.5">{desc}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
           </div>
-        </div>
-        </div>
+        </section>
+
+        {/* ── PROCESSUS ── */}
+        <section className="py-16 px-4 bg-white">
+          <div className="max-w-3xl mx-auto">
+            <motion.div
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: "-60px" }}
+              variants={container}
+            >
+              <motion.h2 variants={fadeUp} className="text-2xl font-bold text-gray-900 mb-8">
+                Comment ça se passe ?
+              </motion.h2>
+              <div className="flex flex-col gap-0">
+                {[
+                  { n: "1", title: "Diagnostic gratuit", desc: "J'identifie précisément le problème et vous propose un devis transparent, sans frais cachés." },
+                  { n: "2", title: "Vous acceptez (ou non)", desc: "Aucun engagement. Si vous refusez le devis, vous ne payez rien. Le déplacement est offert." },
+                  { n: "3", title: "Réparation sur place", desc: "Je répare votre téléphone chez vous avec des pièces de qualité premium et des outils professionnels." },
+                  { n: "4", title: "Tests & garantie", desc: "Votre appareil est testé sous vos yeux avant restitution. Garantie 6 mois pièces et main d'œuvre." },
+                ].map((step, i, arr) => (
+                  <motion.div key={step.n} variants={fadeUp} className="flex gap-5">
+                    <div className="flex flex-col items-center">
+                      <div className="w-9 h-9 rounded-full bg-gray-950 text-white flex items-center justify-center text-sm font-bold shrink-0">
+                        {step.n}
+                      </div>
+                      {i < arr.length - 1 && <div className="w-0.5 h-full bg-gray-100 my-1" />}
+                    </div>
+                    <div className="pb-8">
+                      <p className="text-sm font-bold text-gray-900 mb-1">{step.title}</p>
+                      <p className="text-sm text-gray-500 leading-relaxed">{step.desc}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ── EXPERTISE ── */}
+        <section className="py-16 px-4 bg-gray-50">
+          <div className="max-w-4xl mx-auto">
+            <motion.div
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: "-60px" }}
+              variants={container}
+            >
+              <motion.h2 variants={fadeUp} className="text-2xl font-bold text-gray-900 mb-8">
+                Services de réparation
+              </motion.h2>
+              <div className="grid sm:grid-cols-2 gap-4">
+                {[
+                  { icon: Smartphone, title: "Réparation d'écrans", desc: "Écran fissuré ou qui ne répond plus ? Remplacement avec pièces de qualité premium, toutes marques." },
+                  { icon: Wrench, title: "Remplacement de batterie", desc: "Batterie qui se décharge rapidement ? Remplacement rapide pour restaurer l'autonomie d'origine." },
+                  { icon: Clock, title: "Réparation express", desc: "La plupart des réparations en moins d'une heure, sur place, sans vous déplacer." },
+                  { icon: MapPin, title: "Service à domicile", desc: "Intervention sur tout Bordeaux Métropole : Bordeaux, Pessac, Mérignac, Talence, Bègles…" },
+                ].map(({ icon: Icon, title, desc }) => (
+                  <motion.div
+                    key={title}
+                    variants={fadeUp}
+                    className="flex gap-4 bg-white rounded-2xl border border-gray-100 p-5 shadow-sm"
+                  >
+                    <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: "rgba(11,102,102,0.08)" }}>
+                      <Icon className="w-5 h-5 text-[#0b6666]" />
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-bold text-gray-900 mb-1">{title}</h3>
+                      <p className="text-sm text-gray-500 leading-relaxed">{desc}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+              <motion.div variants={fadeUp} className="mt-6 text-center">
+                <Link
+                  to="/repair"
+                  className="inline-flex items-center gap-2 bg-gray-950 text-white px-6 py-3 rounded-xl font-semibold text-sm hover:bg-gray-800 transition-colors"
+                >
+                  Voir tous nos services
+                  <ArrowRight className="w-4 h-4 opacity-70" />
+                </Link>
+              </motion.div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ── TÉMOIGNAGES ── */}
+        <section className="py-14 px-4 bg-gray-950">
+          <div className="max-w-3xl mx-auto">
+            <motion.div
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              variants={container}
+              className="grid md:grid-cols-2 gap-5"
+            >
+              {[
+                { text: "J'ai fait appel à Phone Master pour changer la batterie de mon Samsung à Bordeaux. Intervention rapide à domicile, prix honnête et résultat impeccable.", author: "Thomas S.", city: "Bordeaux" },
+                { text: "Réparation de mon iPhone 13 à domicile à Talence, écran changé en 30 minutes, prix correct et garantie 6 mois, je recommande.", author: "Anthony P.", city: "Talence" },
+              ].map((t) => (
+                <motion.div key={t.author} variants={fadeUp} className="bg-white/5 border border-white/10 rounded-2xl p-6">
+                  <div className="flex gap-1 mb-3">
+                    {[...Array(5)].map((_, i) => (
+                      <svg key={i} className="w-4 h-4 text-amber-400 fill-current" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                    ))}
+                  </div>
+                  <p className="text-gray-300 text-sm leading-relaxed mb-3">"{t.text}"</p>
+                  <p className="text-xs text-gray-500 font-medium">— {t.author}, {t.city}</p>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ── FAQ ── */}
+        <section className="py-16 px-4 bg-white">
+          <div className="max-w-3xl mx-auto">
+            <motion.div
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: "-60px" }}
+              variants={container}
+            >
+              <motion.h2 variants={fadeUp} className="text-2xl font-bold text-gray-900 mb-8">
+                Questions fréquentes
+              </motion.h2>
+              <div className="flex flex-col gap-3">
+                {faqs.map((faq, i) => (
+                  <motion.div key={i} variants={fadeUp} className="border border-gray-200 rounded-2xl overflow-hidden">
+                    <button
+                      onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                      className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left hover:bg-gray-50 transition-colors"
+                    >
+                      <span className="text-sm font-semibold text-gray-900">{faq.question}</span>
+                      <ChevronDown className={`w-4 h-4 text-gray-400 shrink-0 transition-transform duration-200 ${openFaq === i ? "rotate-180" : ""}`} />
+                    </button>
+                    {openFaq === i && (
+                      <div className="px-5 pb-4 text-sm text-gray-500 leading-relaxed border-t border-gray-100 pt-3">
+                        {faq.answer}
+                      </div>
+                    )}
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ── CTA ── */}
+        <section className="py-16 px-4 bg-gray-50 border-t border-gray-100">
+          <div className="max-w-3xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="bg-gray-950 rounded-3xl p-8 md:p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
+            >
+              <div>
+                <p className="text-white text-xl font-bold mb-1">Besoin d'une réparation aujourd'hui ?</p>
+                <p className="text-gray-400 text-sm">Disponible 6j/7 · Diagnostic gratuit · Sans acompte</p>
+              </div>
+              <div className="flex flex-wrap gap-3 shrink-0">
+                <a
+                  href="tel:0635175711"
+                  className="inline-flex items-center gap-2 bg-white text-gray-900 px-5 py-2.5 rounded-xl font-semibold text-sm hover:bg-gray-100 transition-colors"
+                >
+                  <Phone className="w-4 h-4" />
+                  Appeler
+                </a>
+                <Link
+                  to="/repair"
+                  className="inline-flex items-center gap-2 bg-white/10 text-white px-5 py-2.5 rounded-xl font-semibold text-sm hover:bg-white/15 transition-colors border border-white/10"
+                >
+                  Prendre rendez-vous
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
       </div>
     </>
   );

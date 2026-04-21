@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { Helmet } from "react-helmet-async";
 import { AnimatedBlobs } from "../components/ui/AnimatedBlobs";
 
-// Animations config
 const container = {
   hidden: { opacity: 0 },
   show: {
@@ -32,7 +31,7 @@ const Home = () => {
           name="description"
           content="Réparation rapide de smartphones à domicile. iPhone, Samsung, Huawei. Devis gratuit, garantie 6 mois, disponible 6j/7 sur Bordeaux Métropole. 06 35 17 57 11"
         />
-        <meta property="og:title" content="Réparation Smartphone à Domicile - Phone Master" />
+        <meta property="og:title" content="Réparation Smartphone à Domicile — Phone Master" />
         <meta property="og:description" content="Service professionnel de réparation téléphone à domicile. Déplacement gratuit, garantie 6 mois." />
         <meta property="og:type" content="website" />
         <link rel="canonical" href="https://www.phone-master.fr" />
@@ -41,15 +40,12 @@ const Home = () => {
       <div className="overflow-hidden font-body bg-white">
 
         {/* ═══════════════════════════════════════════
-            HERO — réplique exacte de hero-preview-ring.html
-            Blobs centrés par flexbox, texte en position absolute
+            HERO
             ═══════════════════════════════════════════ */}
         <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-white">
 
-          {/* Blobs — centrés par le flex parent */}
           <AnimatedBlobs />
 
-          {/* Texte — position absolute centré sur les blobs, décalé du haut pour la navbar */}
           <motion.div
             className="absolute inset-0 flex flex-col items-center justify-center z-10 pointer-events-none gap-5"
             style={{ paddingTop: '64px' }}
@@ -57,19 +53,24 @@ const Home = () => {
             animate="show"
             variants={container}
           >
-            {/* Nom de marque — Inter exactement comme le preview */}
+            {/* H1 SEO */}
             <motion.h1
               variants={item}
               style={{
                 fontFamily: "'Inter', sans-serif",
-                fontSize: 'clamp(3.5rem, 10vw, 7rem)',
+                fontSize: 'clamp(2.2rem, 6vw, 4.8rem)',
                 fontWeight: 800,
                 letterSpacing: '-0.04em',
-                lineHeight: 1,
+                lineHeight: 1.05,
                 color: '#111',
+                textAlign: 'center',
+                maxWidth: '900px',
+                padding: '0 1rem',
               }}
             >
-              Phone<span style={{ color: '#0b6666' }}>Master</span>
+              Réparation smartphone<br />
+              à domicile —{' '}
+              <span style={{ color: '#0b6666' }}>Bordeaux Métropole</span>
             </motion.h1>
 
             {/* Tagline */}
@@ -83,7 +84,7 @@ const Home = () => {
                 letterSpacing: '-0.01em',
               }}
             >
-              Réparation rapide · Pièces d'origine · Garantie 6 mois
+              Chez vous en 1h · Garantie 6 mois · Pas de paiement à l'avance
             </motion.p>
 
             {/* CTAs */}
@@ -128,14 +129,14 @@ const Home = () => {
             </motion.div>
           </motion.div>
 
-          {/* Trust chips — fixed en bas, exactement comme le preview */}
+          {/* Trust chips */}
           <motion.div
             className="fixed bottom-9 left-1/2 -translate-x-1/2 flex gap-2.5 z-20 whitespace-nowrap"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.2, duration: 0.8 }}
           >
-            {["Diagnostic gratuit", "30 min", "Garantie 6 mois", "+1 200 clients"].map((label) => (
+            {["Diagnostic gratuit", "30 min", "Garantie 6 mois", "Sans acompte"].map((label) => (
               <span
                 key={label}
                 style={{
@@ -162,6 +163,33 @@ const Home = () => {
         </section>
 
         {/* ═══════════════════════════════════════════
+            SEO TEXT BLOCK
+            ═══════════════════════════════════════════ */}
+        <section className="py-16 bg-white border-b border-gray-100">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
+              <h2
+                className="text-2xl font-bold text-gray-900 mb-4 tracking-tight"
+                style={{ fontFamily: "'Inter', sans-serif" }}
+              >
+                Réparation de smartphones à domicile sur Bordeaux Métropole
+              </h2>
+              <p className="text-gray-500 leading-relaxed text-[0.95rem]" style={{ fontFamily: "'Inter', sans-serif" }}>
+                Votre iPhone, Samsung Galaxy ou Huawei est en panne ? Écran cassé, batterie qui ne tient plus, connecteur de charge défaillant, caméra qui ne fonctionne plus ? Phone Master intervient chez vous en moins d'une heure pour réparer votre téléphone sur place — à domicile ou sur votre lieu de travail — partout dans Bordeaux Métropole : Bordeaux, Talence, Pessac, Mérignac, Bègles, Gradignan, Villenave-d'Ornon, Cenon, Floirac, Le Bouscat, Le Haillan.
+              </p>
+              <p className="text-gray-500 leading-relaxed text-[0.95rem] mt-4" style={{ fontFamily: "'Inter', sans-serif" }}>
+                Technicien spécialisé depuis plus de 10 ans, je vous propose une réparation rapide (30 minutes pour une batterie, 1 heure pour un écran), garantie 6 mois sur pièces et main d'œuvre, sans acompte ni paiement à l'avance. Le diagnostic et le déplacement sont gratuits : vous payez uniquement si la réparation est effectuée et réussie.
+              </p>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ═══════════════════════════════════════════
             FEATURES — 3 cartes
             ═══════════════════════════════════════════ */}
         <section className="py-20 bg-gray-50">
@@ -177,7 +205,7 @@ const Home = () => {
                 {
                   icon: <Clock className="h-10 w-10 text-[#356a78]" />,
                   title: "Intervention rapide",
-                  desc: "Réparation en 30 minutes en moyenne, directement à votre domicile ou lieu choisi. Possibilité de récupérer l'appareil dans notre atelier. Déplacement gratuit.",
+                  desc: "Réparation en 30 minutes à 1h en moyenne, directement à votre domicile ou lieu choisi. Possibilité de récupérer l'appareil dans notre atelier. Déplacement gratuit.",
                 },
                 {
                   icon: <Shield className="h-10 w-10 text-[#356a78]" />,
@@ -186,8 +214,8 @@ const Home = () => {
                 },
                 {
                   icon: <Tool className="h-10 w-10 text-[#356a78]" />,
-                  title: "Experts certifiés",
-                  desc: "Techniciens formés et certifiés. 10 ans d'expérience en réparation smartphone.",
+                  title: "Expert certifié",
+                  desc: "Technicien formé et certifié. 10 ans d'expérience en réparation smartphone. Pièces de qualité premium testées.",
                 },
               ].map((card) => (
                 <motion.div
@@ -206,10 +234,64 @@ const Home = () => {
         </section>
 
         {/* ═══════════════════════════════════════════
+            TÉMOIGNAGES
+            ═══════════════════════════════════════════ */}
+        <section className="py-16 bg-white">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.h2
+              className="text-2xl font-bold text-gray-900 mb-8 text-center tracking-tight"
+              style={{ fontFamily: "'Inter', sans-serif" }}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              Ce que disent nos clients
+            </motion.h2>
+            <motion.div
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+              variants={container}
+              className="grid md:grid-cols-2 gap-6"
+            >
+              {[
+                {
+                  text: "J'ai fait appel à Phone Master pour changer la batterie de mon Samsung à Bordeaux. Intervention rapide à domicile, prix honnête et résultat impeccable.",
+                  author: "Thomas S.",
+                  city: "Bordeaux",
+                },
+                {
+                  text: "Réparation de mon iPhone 13 à domicile à Talence, écran changé en 30 minutes, prix correct et garantie 6 mois, je recommande.",
+                  author: "Anthony P.",
+                  city: "Talence",
+                },
+              ].map((t) => (
+                <motion.div
+                  key={t.author}
+                  variants={item}
+                  className="bg-gray-50 rounded-2xl p-6 border border-gray-100"
+                >
+                  <div className="flex gap-1 mb-3">
+                    {[...Array(5)].map((_, i) => (
+                      <svg key={i} className="w-4 h-4 text-amber-400 fill-current" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                    ))}
+                  </div>
+                  <p className="text-gray-700 text-sm leading-relaxed mb-4">"{t.text}"</p>
+                  <p className="text-xs font-semibold text-gray-400">— {t.author}, {t.city}</p>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ═══════════════════════════════════════════
             CTA Section
             ═══════════════════════════════════════════ */}
         <motion.section
-          className="py-20 bg-white"
+          className="py-20 bg-gray-50"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}

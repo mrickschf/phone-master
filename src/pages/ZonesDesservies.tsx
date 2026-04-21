@@ -12,7 +12,10 @@ const cities = [
     name: "Villenave-d'Ornon",
     path: "/reparation-ecran-iphone-villenave-dornon",
   },
-  { name: "Léognan", path: "/reparation-smartphone-leognan" },
+  { name: "Cenon", path: "/reparation-smartphone-cenon" },
+  { name: "Floirac", path: "/reparation-smartphone-floirac" },
+  { name: "Le Bouscat", path: "/reparation-smartphone-le-bouscat" },
+  { name: "Le Haillan", path: "/reparation-smartphone-le-haillan" },
 ];
 
 const ZonesDesservies = () => {
@@ -22,7 +25,7 @@ const ZonesDesservies = () => {
         <title>Zones Desservies - Réparation à Domicile Bordeaux Métropole | Phone Master</title>
         <meta
           name="description"
-          content="Découvrez toutes les zones où intervient Phone Master. Réparation smartphone à domicile à Bordeaux, Talence, Pessac, Mérignac et alentours."
+          content="Découvrez toutes les zones où intervient Phone Master. Réparation smartphone à domicile à Bordeaux, Talence, Pessac, Mérignac, Cenon, Floirac et alentours."
         />
         <link rel="canonical" href="https://www.phone-master.fr/zones-desservies" />
       </Helmet>

@@ -10,7 +10,7 @@ const Footer = () => {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex flex-col sm:flex-row items-center justify-between gap-6">
           <div>
             <p className="text-white font-semibold text-lg">Votre téléphone en panne ?</p>
-            <p className="text-gray-400 text-sm mt-0.5">Diagnostic gratuit · Déplacement offert · 6j/7</p>
+            <p className="text-gray-400 text-sm mt-0.5">Diagnostic gratuit · Déplacement offert · Sans acompte · 6j/7</p>
           </div>
           <Link
             to="/repair"
