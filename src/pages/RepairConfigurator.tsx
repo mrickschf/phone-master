@@ -690,7 +690,10 @@ const RepairConfigurator = () => {
             {step === "model" && selectedBrand && (
               <div>
                 <button
-                  onClick={() => { setStep("brand"); window.scrollTo({ top: 0, behavior: "instant" }); }}
+                  onClick={() => {
+                    setStep("brand");
+                    window.scrollTo({ top: 0, behavior: "instant" });
+                  }}
                   className="flex items-center gap-1.5 mb-4 px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors"
                 >
                   <ChevronRight className="w-4 h-4 rotate-180 mr-1" />
@@ -717,7 +720,10 @@ const RepairConfigurator = () => {
             {step === "repair" && selectedModel && (
               <div>
                 <button
-                  onClick={() => { setStep("model"); window.scrollTo({ top: 0, behavior: "instant" }); }}
+                  onClick={() => {
+                    setStep("model");
+                    window.scrollTo({ top: 0, behavior: "instant" });
+                  }}
                   className="flex items-center gap-1.5 mb-4 px-3 py-1.5 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors"
                 >
                   <ChevronRight className="w-4 h-4 rotate-180 mr-1" />
@@ -751,8 +757,16 @@ const RepairConfigurator = () => {
                   ))}
                 </div>
                 <div className="flex items-center justify-center gap-6 mt-6 flex-wrap">
-                  {["Déplacement gratuit", "Garantie 6 mois", "Bordeaux Métropole"].map((t) => (
-                    <span key={t} className="flex items-center gap-1.5 text-xs text-gray-400 font-medium" style={{ fontFamily: "'Inter', sans-serif" }}>
+                  {[
+                    "Déplacement gratuit",
+                    "Garantie 6 mois",
+                    "Bordeaux Métropole",
+                  ].map((t) => (
+                    <span
+                      key={t}
+                      className="flex items-center gap-1.5 text-xs text-gray-400 font-medium"
+                      style={{ fontFamily: "'Inter', sans-serif" }}
+                    >
                       <span className="w-1.5 h-1.5 rounded-full bg-[#0b6666] inline-block" />
                       {t}
                     </span>

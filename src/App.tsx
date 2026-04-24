@@ -1,4 +1,6 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
+import type { RouteRecord } from "vite-react-ssg";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
@@ -10,86 +12,53 @@ import About from "./pages/About";
 import LocalPage from "./pages/LocalPage";
 import ZonesDesservies from "./pages/ZonesDesservies";
 
-function App() {
-  return (
-    <Router>
+const Layout = () => (
+  <HelmetProvider>
+    <div className="min-h-screen flex flex-col">
       <ScrollToTop />
-      <div className="min-h-screen flex flex-col">
-        <Navbar />
-        <main className="flex-grow">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/repair" element={<RepairConfigurator />} />
-            <Route path="/booking" element={<Booking />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/zones-desservies" element={<ZonesDesservies />} />
+      <Navbar />
+      <main className="flex-grow">
+        <Outlet />
+      </main>
+      <Footer />
+    </div>
+  </HelmetProvider>
+);
 
-            {/* Pages Locales SEO */}
-            <Route
-              path="/reparation-telephone-talence"
-              element={<LocalPage city="Talence" />}
-            />
-            <Route
-              path="/reparation-smartphone-bordeaux"
-              element={<LocalPage city="Bordeaux" />}
-            />
-            <Route
-              path="/reparateur-iphone-pessac"
-              element={<LocalPage city="Pessac" />}
-            />
-            <Route
-              path="/technicien-smartphone-domicile-gironde"
-              element={<LocalPage city="la Gironde" />}
-            />
-            <Route
-              path="/changement-ecran-telephone-begles"
-              element={<LocalPage city="Bègles" />}
-            />
-            <Route
-              path="/depannage-telephone-rapide-bordeaux"
-              element={<LocalPage city="Bordeaux" />}
-            />
-            <Route
-              path="/service-reparation-mobile-gradignan"
-              element={<LocalPage city="Gradignan" />}
-            />
-            <Route
-              path="/reparateur-mobile-merignac"
-              element={<LocalPage city="Mérignac" />}
-            />
-            <Route
-              path="/reparation-ecran-iphone-villenave-dornon"
-              element={<LocalPage city="Villenave-d'Ornon" />}
-            />
-            <Route
-              path="/reparation-smartphone-leognan"
-              element={<LocalPage city="Léognan" />}
-            />
+const cityRoutes: { path: string; city: string }[] = [
+  { path: "reparation-telephone-talence",           city: "Talence" },
+  { path: "reparation-smartphone-bordeaux",         city: "Bordeaux" },
+  { path: "reparateur-iphone-pessac",               city: "Pessac" },
+  { path: "technicien-smartphone-domicile-gironde", city: "la Gironde" },
+  { path: "changement-ecran-telephone-begles",      city: "Bègles" },
+  { path: "depannage-telephone-rapide-bordeaux",    city: "Bordeaux" },
+  { path: "service-reparation-mobile-gradignan",    city: "Gradignan" },
+  { path: "reparateur-mobile-merignac",             city: "Mérignac" },
+  { path: "reparation-ecran-iphone-villenave-dornon", city: "Villenave-d'Ornon" },
+  { path: "reparation-smartphone-leognan",          city: "Léognan" },
+  { path: "reparation-smartphone-cenon",            city: "Cenon" },
+  { path: "reparation-smartphone-floirac",          city: "Floirac" },
+  { path: "reparation-smartphone-le-bouscat",       city: "Le Bouscat" },
+  { path: "reparation-smartphone-le-haillan",       city: "Le Haillan" },
+];
 
-            {/* Nouvelles villes Bordeaux Métropole */}
-            <Route
-              path="/reparation-smartphone-cenon"
-              element={<LocalPage city="Cenon" />}
-            />
-            <Route
-              path="/reparation-smartphone-floirac"
-              element={<LocalPage city="Floirac" />}
-            />
-            <Route
-              path="/reparation-smartphone-le-bouscat"
-              element={<LocalPage city="Le Bouscat" />}
-            />
-            <Route
-              path="/reparation-smartphone-le-haillan"
-              element={<LocalPage city="Le Haillan" />}
-            />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
-    </Router>
-  );
-}
+export const routes: RouteRecord[] = [
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      { index: true,                        element: <Home /> },
+      { path: "repair",                     element: <RepairConfigurator /> },
+      { path: "booking",                    element: <Booking /> },
+      { path: "contact",                    element: <Contact /> },
+      { path: "about",                      element: <About /> },
+      { path: "zones-desservies",           element: <ZonesDesservies /> },
+      ...cityRoutes.map(({ path, city }) => ({
+        path,
+        element: <LocalPage city={city} />,
+      })),
+    ],
+  },
+];
 
-export default App;
+export default routes;

@@ -1,28 +1,17 @@
 # Phone Master - robots.txt
 # https://www.phone-master.fr/robots.txt
 
-# Allow all bots to crawl
+# Tous les robots sont autorisés à crawler l'intégralité du site.
 User-agent: *
 Allow: /
 
-# Specific rules for Google
+# Ressources techniques nécessaires au rendu (CSS/JS).
+# Ne jamais bloquer ces ressources : Google doit pouvoir rendre la page.
 User-agent: Googlebot
 Allow: /
-Crawl-delay: 1
+Allow: /*.css$
+Allow: /*.js$
+Allow: /assets/
 
-# Sitemap location
+# Sitemap
 Sitemap: https://www.phone-master.fr/sitemap.xml
-
-# Block bad bots
-User-agent: AhrefsBot
-Disallow: /
-
-User-agent: SemrushBot
-Disallow: /
-
-User-agent: DotBot
-Disallow: /
-
-# Disallow private/internal pages (if any)
-# Disallow: /admin/
-# Disallow: /internal/

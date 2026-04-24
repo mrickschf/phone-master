@@ -1,8 +1,83 @@
 import { Link } from "react-router-dom";
-import { Shield, Clock, PenTool as Tool, ArrowRight } from "lucide-react";
+import { Shield, Clock, PenTool as Tool, ArrowRight, Recycle } from "lucide-react";
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet-async";
 import { AnimatedBlobs } from "../components/ui/AnimatedBlobs";
+
+const homeLocalBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": "https://www.phone-master.fr/#localbusiness",
+  name: "Phone Master",
+  image: "https://www.phone-master.fr/assets/logos/og-cover.jpg",
+  url: "https://www.phone-master.fr/",
+  telephone: "+33635175711",
+  email: "phone.master.gironde@gmail.com",
+  priceRange: "€€",
+  description:
+    "Réparation smartphone à domicile sur Bordeaux Métropole — iPhone, Samsung Galaxy, Huawei. Garantie 6 mois, sans acompte, déplacement gratuit. Agréé QualiRépar.",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Talence",
+    postalCode: "33400",
+    addressRegion: "Nouvelle-Aquitaine",
+    addressCountry: "FR",
+  },
+  geo: { "@type": "GeoCoordinates", latitude: 44.8087, longitude: -0.5942 },
+  areaServed: [
+    { "@type": "AdministrativeArea", name: "Bordeaux Métropole" },
+    { "@type": "AdministrativeArea", name: "Gironde" },
+  ],
+  openingHoursSpecification: {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
+    opens: "08:00",
+    closes: "21:30",
+  },
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Réparations smartphone",
+    itemListElement: [
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Changement écran iPhone" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Changement écran Samsung" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Remplacement batterie smartphone" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Réparation connecteur de charge" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Réparation caméra smartphone" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Réparation vitre arrière" } },
+    ],
+  },
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "4.9",
+    reviewCount: "127",
+    bestRating: "5",
+    worstRating: "1",
+  },
+  review: [
+    {
+      "@type": "Review",
+      reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+      author: { "@type": "Person", name: "Thomas S." },
+      reviewBody:
+        "J'ai fait appel à Phone Master pour changer la batterie de mon Samsung à Bordeaux. Intervention rapide à domicile, prix honnête et résultat impeccable.",
+    },
+    {
+      "@type": "Review",
+      reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+      author: { "@type": "Person", name: "Anthony P." },
+      reviewBody:
+        "Réparation de mon iPhone 13 à domicile à Talence, écran changé en 30 minutes, prix correct et garantie 6 mois, je recommande.",
+    },
+  ],
+};
+
+const homeBreadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Accueil", item: "https://www.phone-master.fr/" },
+  ],
+};
 
 const container = {
   hidden: { opacity: 0 },
@@ -26,15 +101,34 @@ const Home = () => {
   return (
     <>
       <Helmet>
-        <title>Réparation Smartphone à Domicile - Bordeaux Métropole | Phone Master</title>
+        <title>Réparation Smartphone à Domicile Bordeaux Métropole — Phone Master</title>
         <meta
           name="description"
-          content="Réparation rapide de smartphones à domicile. iPhone, Samsung, Huawei. Devis gratuit, garantie 6 mois, disponible 6j/7 sur Bordeaux Métropole. 06 35 17 57 11"
+          content="Réparation iPhone, Samsung, Huawei à domicile sur Bordeaux Métropole. Garantie 6 mois, sans acompte, déplacement gratuit. Agréé QualiRépar. 6j/7 — 06 35 17 57 11."
         />
-        <meta property="og:title" content="Réparation Smartphone à Domicile — Phone Master" />
-        <meta property="og:description" content="Service professionnel de réparation téléphone à domicile. Déplacement gratuit, garantie 6 mois." />
+        <link rel="canonical" href="https://www.phone-master.fr/" />
+
         <meta property="og:type" content="website" />
-        <link rel="canonical" href="https://www.phone-master.fr" />
+        <meta property="og:locale" content="fr_FR" />
+        <meta property="og:site_name" content="Phone Master" />
+        <meta property="og:title" content="Réparation smartphone à domicile — Bordeaux Métropole | Phone Master" />
+        <meta property="og:description" content="Réparation iPhone, Samsung, Huawei à domicile. Garantie 6 mois, déplacement gratuit, sans acompte. Agréé QualiRépar. 06 35 17 57 11." />
+        <meta property="og:url" content="https://www.phone-master.fr/" />
+        <meta property="og:image" content="https://www.phone-master.fr/assets/logos/og-cover.jpg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Réparation smartphone à domicile — Bordeaux Métropole" />
+        <meta name="twitter:description" content="iPhone, Samsung, Huawei. Garantie 6 mois, sans acompte. 06 35 17 57 11." />
+        <meta name="twitter:image" content="https://www.phone-master.fr/assets/logos/og-cover.jpg" />
+
+        <script type="application/ld+json">
+          {JSON.stringify(homeLocalBusinessSchema)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(homeBreadcrumbSchema)}
+        </script>
       </Helmet>
 
       <div className="overflow-hidden font-body bg-white">
@@ -185,6 +279,43 @@ const Home = () => {
               <p className="text-gray-500 leading-relaxed text-[0.95rem] mt-4" style={{ fontFamily: "'Inter', sans-serif" }}>
                 Technicien spécialisé depuis plus de 10 ans, je vous propose une réparation rapide (30 minutes pour une batterie, 1 heure pour un écran), garantie 6 mois sur pièces et main d'œuvre, sans acompte ni paiement à l'avance. Le diagnostic et le déplacement sont gratuits : vous payez uniquement si la réparation est effectuée et réussie.
               </p>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ═══════════════════════════════════════════
+            QUALIRÉPAR — Différenciateur clé
+            ═══════════════════════════════════════════ */}
+        <section className="py-16 bg-[#0b6666] text-white">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="flex flex-col md:flex-row items-start md:items-center gap-6"
+            >
+              <div className="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center shrink-0">
+                <Recycle className="w-7 h-7 text-white" />
+              </div>
+              <div className="flex-1">
+                <p className="text-xs uppercase tracking-wide text-white/70 font-semibold mb-1">
+                  Bonus écologique de l'État
+                </p>
+                <h2 className="text-2xl font-bold mb-2">
+                  Phone Master est agréé <span className="underline decoration-white/40 underline-offset-4">QualiRépar</span>
+                </h2>
+                <p className="text-white/85 leading-relaxed text-[0.95rem]">
+                  Vous bénéficiez automatiquement du <strong>bonus réparation de 25 €</strong> déduit de votre facture pour le changement d'écran de votre smartphone. Aucun dossier à remplir : c'est nous qui nous en occupons.
+                </p>
+              </div>
+              <Link
+                to="/repair"
+                className="inline-flex items-center gap-2 bg-white text-[#0b6666] px-5 py-2.5 rounded-xl font-semibold text-sm hover:bg-white/90 transition-colors shrink-0"
+              >
+                Calculer mon prix
+                <ArrowRight className="w-4 h-4" />
+              </Link>
             </motion.div>
           </div>
         </section>

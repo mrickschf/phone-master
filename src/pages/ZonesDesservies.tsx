@@ -22,12 +22,49 @@ const ZonesDesservies = () => {
   return (
     <>
       <Helmet>
-        <title>Zones Desservies - Réparation à Domicile Bordeaux Métropole | Phone Master</title>
+        <title>Zones desservies — Réparation smartphone à domicile Bordeaux Métropole | Phone Master</title>
         <meta
           name="description"
-          content="Découvrez toutes les zones où intervient Phone Master. Réparation smartphone à domicile à Bordeaux, Talence, Pessac, Mérignac, Cenon, Floirac et alentours."
+          content="Toutes les zones où intervient Phone Master. Réparation smartphone à domicile à Bordeaux, Talence, Pessac, Mérignac, Bègles, Gradignan, Cenon, Floirac, Le Bouscat, Le Haillan."
         />
         <link rel="canonical" href="https://www.phone-master.fr/zones-desservies" />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:locale" content="fr_FR" />
+        <meta property="og:site_name" content="Phone Master" />
+        <meta property="og:title" content="Zones desservies — Réparation smartphone Bordeaux Métropole" />
+        <meta property="og:description" content="Intervention à domicile dans toute Bordeaux Métropole. Garantie 6 mois, agréé QualiRépar." />
+        <meta property="og:url" content="https://www.phone-master.fr/zones-desservies" />
+        <meta property="og:image" content="https://www.phone-master.fr/assets/logos/og-cover.jpg" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Zones desservies — Phone Master" />
+        <meta name="twitter:description" content="Réparation smartphone à domicile dans toute Bordeaux Métropole." />
+        <meta name="twitter:image" content="https://www.phone-master.fr/assets/logos/og-cover.jpg" />
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            name: "Zones desservies par Phone Master",
+            itemListElement: cities.map((c, i) => ({
+              "@type": "ListItem",
+              position: i + 1,
+              name: `Réparation smartphone à ${c.name}`,
+              url: `https://www.phone-master.fr${c.path}`,
+            })),
+          })}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Accueil", item: "https://www.phone-master.fr/" },
+              { "@type": "ListItem", position: 2, name: "Zones desservies", item: "https://www.phone-master.fr/zones-desservies" },
+            ],
+          })}
+        </script>
       </Helmet>
       <div className="pt-24 px-6 pb-10 max-w-4xl mx-auto">
       <h1 className="text-2xl font-semibold text-center mb-6">

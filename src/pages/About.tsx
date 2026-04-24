@@ -60,12 +60,56 @@ const AboutPage = () => {
   return (
     <>
       <Helmet>
-        <title>À Propos de Phone Master - Expert Réparation Smartphone Bordeaux Métropole</title>
+        <title>À propos de Phone Master — Expert réparation smartphone Bordeaux Métropole</title>
         <meta
           name="description"
-          content="Technicien certifié en réparation smartphone à domicile sur Bordeaux Métropole. 10 ans d'expérience, pièces de qualité premium, garantie 6 mois, sans acompte."
+          content="Technicien certifié en réparation smartphone à domicile sur Bordeaux Métropole. Plus de 10 ans d'expérience, pièces premium, garantie 6 mois, sans acompte. Agréé QualiRépar."
         />
         <link rel="canonical" href="https://www.phone-master.fr/about" />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:locale" content="fr_FR" />
+        <meta property="og:site_name" content="Phone Master" />
+        <meta property="og:title" content="À propos de Phone Master — Expert réparation smartphone Bordeaux" />
+        <meta property="og:description" content="Technicien certifié, 10 ans d'expérience, garantie 6 mois, agréé QualiRépar." />
+        <meta property="og:url" content="https://www.phone-master.fr/about" />
+        <meta property="og:image" content="https://www.phone-master.fr/assets/logos/og-cover.jpg" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="À propos de Phone Master" />
+        <meta name="twitter:description" content="Réparation smartphone à domicile, Bordeaux Métropole." />
+        <meta name="twitter:image" content="https://www.phone-master.fr/assets/logos/og-cover.jpg" />
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "AboutPage",
+            url: "https://www.phone-master.fr/about",
+            name: "À propos de Phone Master",
+            mainEntity: { "@id": "https://www.phone-master.fr/#organization" },
+          })}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: faqs.map((f) => ({
+              "@type": "Question",
+              name: f.question,
+              acceptedAnswer: { "@type": "Answer", text: f.answer },
+            })),
+          })}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Accueil", item: "https://www.phone-master.fr/" },
+              { "@type": "ListItem", position: 2, name: "À propos", item: "https://www.phone-master.fr/about" },
+            ],
+          })}
+        </script>
       </Helmet>
 
       <div className="min-h-screen bg-white" style={{ fontFamily: "'Inter', sans-serif" }}>

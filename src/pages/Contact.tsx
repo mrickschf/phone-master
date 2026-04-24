@@ -26,9 +26,50 @@ const Contact = () => {
   return (
     <>
       <Helmet>
-        <title>Contactez Phone Master - Support Réparation Smartphone Bordeaux Métropole</title>
-        <meta name="description" content="Besoin d'aide pour votre smartphone? Contactez Phone Master. Support rapide, devis gratuit. Bordeaux Métropole - 06 35 17 57 11 - Disponible 7j/7" />
+        <title>Contactez Phone Master — Réparation smartphone Bordeaux Métropole</title>
+        <meta
+          name="description"
+          content="Besoin d'aide pour votre smartphone ? Contactez Phone Master. Devis gratuit, intervention à domicile, garantie 6 mois. Bordeaux Métropole — 06 35 17 57 11 · Lun–Sam 8h–21h30."
+        />
         <link rel="canonical" href="https://www.phone-master.fr/contact" />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:locale" content="fr_FR" />
+        <meta property="og:site_name" content="Phone Master" />
+        <meta property="og:title" content="Contactez Phone Master — Réparation smartphone Bordeaux" />
+        <meta property="og:description" content="Devis gratuit, intervention à domicile, garantie 6 mois. 06 35 17 57 11." />
+        <meta property="og:url" content="https://www.phone-master.fr/contact" />
+        <meta property="og:image" content="https://www.phone-master.fr/assets/logos/og-cover.jpg" />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Contactez Phone Master" />
+        <meta name="twitter:description" content="Réparation smartphone à domicile, Bordeaux Métropole." />
+        <meta name="twitter:image" content="https://www.phone-master.fr/assets/logos/og-cover.jpg" />
+
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ContactPage",
+            url: "https://www.phone-master.fr/contact",
+            name: "Contact Phone Master",
+            mainEntity: {
+              "@type": "Organization",
+              "@id": "https://www.phone-master.fr/#organization",
+              name: "Phone Master",
+              telephone: "+33635175711",
+              email: "phone.master.gironde@gmail.com",
+              contactPoint: [
+                {
+                  "@type": "ContactPoint",
+                  telephone: "+33635175711",
+                  contactType: "customer service",
+                  areaServed: "FR",
+                  availableLanguage: ["French"],
+                },
+              ],
+            },
+          })}
+        </script>
       </Helmet>
 
       <div
