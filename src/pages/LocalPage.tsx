@@ -36,13 +36,20 @@ type CityRecord = {
   postalCode?: string;
   geo?: { lat: number; lng: number };
   testimonials: { text: string; author: string }[];
+  // Section SEO additionnelle (optionnelle) — renforce le lexique de la ville
+  seoSection?: {
+    title: string;
+    paragraphs: string[];
+  };
+  // Liens internes vers pages services (optionnel)
+  serviceLinks?: { label: string; path: string }[];
 };
 
 const cityData: Record<string, CityRecord> = {
   Bordeaux: {
-    title: "Réparation smartphone Bordeaux à domicile — Phone Master",
+    title: "Réparation iPhone et téléphone à Bordeaux à domicile — Phone Master",
     description:
-      "Réparation smartphone à domicile à Bordeaux : écran cassé, batterie, connecteur. iPhone, Samsung, Huawei. Devis gratuit, garantie 6 mois, agréé QualiRépar. 6j/7 — 06 35 17 57 11.",
+      "Réparation iPhone et téléphone à Bordeaux à domicile : écran cassé, batterie, connecteur. iPhone, Samsung, Huawei. Garantie 6 mois, agréé QualiRépar (-25 €). 6j/7 — 06 35 17 57 11.",
     canonical: "https://www.phone-master.fr/reparation-smartphone-bordeaux",
     postalCode: "33000",
     geo: { lat: 44.8378, lng: -0.5792 },
@@ -56,11 +63,25 @@ const cityData: Record<string, CityRecord> = {
         author: "Léa M., Bordeaux",
       },
     ],
+    seoSection: {
+      title: "Réparation iPhone et téléphone à Bordeaux : ce que nous proposons",
+      paragraphs: [
+        "Phone Master est spécialisé en réparation d'iPhone à Bordeaux et dans toute Bordeaux Métropole. Le diagnostic et le déplacement sont gratuits dans tous les quartiers de Bordeaux : centre-ville, Chartrons, Bastide, Saint-Pierre, Saint-Michel, Caudéran, Bacalan, Nansouty, Saint-Genès. Notre cœur de métier reste la réparation iPhone, du modèle iPhone X à l'iPhone 16 Pro Max, mais nous intervenons aussi sur Samsung Galaxy et Huawei.",
+        "Les pannes les plus fréquentes que nous traitons à Bordeaux sont : changement d'écran cassé (intervention en 1 h, écran premium équivalent qualité d'origine), remplacement de batterie (en 30 min, batteries neuves haute capacité), réparation du connecteur de charge (Lightning ou USB-C), et réparation caméra. Pour le changement d'écran, le bonus QualiRépar de 25 € est automatiquement déduit de la facture, sans démarche de votre part.",
+        "Vous pouvez nous appeler au 06 35 17 57 11 du lundi au samedi, 8h–21h30. Pour les Bordelais, nous proposons souvent un créneau le jour même. Tarif annoncé d'avance, paiement après réparation réussie, sans acompte. Garantie 6 mois pièces et main-d'œuvre sur toutes nos interventions.",
+      ],
+    },
+    serviceLinks: [
+      { label: "Changement écran iPhone Bordeaux", path: "/changement-ecran-iphone-bordeaux" },
+      { label: "Remplacement batterie iPhone Bordeaux", path: "/remplacement-batterie-iphone-bordeaux" },
+      { label: "Réparation iPhone à domicile Bordeaux", path: "/reparation-iphone-domicile-bordeaux" },
+      { label: "Bonus QualiRépar à Bordeaux", path: "/bonus-qualirepar-bordeaux" },
+    ],
   },
   Talence: {
-    title: "Réparation téléphone Talence à domicile — Phone Master",
+    title: "Réparation téléphone à Talence — Réparateur smartphone à domicile | Phone Master",
     description:
-      "Technicien smartphone à Talence : écran cassé, batterie, connecteur de charge. Intervention rapide à domicile, garantie 6 mois, agréé QualiRépar. Devis gratuit — 06 35 17 57 11.",
+      "Réparation téléphone à Talence à domicile : iPhone, Samsung, Huawei. Réparateur basé à Talence, écran, batterie, connecteur. Garantie 6 mois, agréé QualiRépar (-25 €). 06 35 17 57 11.",
     canonical: "https://www.phone-master.fr/reparation-telephone-talence",
     postalCode: "33400",
     geo: { lat: 44.8087, lng: -0.5942 },
@@ -73,6 +94,19 @@ const cityData: Record<string, CityRecord> = {
         text: "Ils sont venus me changer la batterie de mon Galaxy S22 sur le campus de Talence. Hyper réactif, prix honnête.",
         author: "Marie L., Talence",
       },
+    ],
+    seoSection: {
+      title: "Réparation téléphone à Talence : le réparateur le plus proche",
+      paragraphs: [
+        "Phone Master est basé à Talence. Pour une réparation de téléphone à Talence, c'est l'intervention la plus rapide possible — souvent dans l'heure qui suit votre appel. Nous couvrons tous les quartiers de Talence : centre, Thouars, Médoquine, Université, Peixotto, Forum, Compostelle, Raba, ainsi que le campus universitaire de Talence (Sciences Po, IUT, Université de Bordeaux).",
+        "La réparation de téléphone à Talence couvre tous les modèles : iPhone (de l'iPhone X à l'iPhone 16 Pro Max), Samsung Galaxy (S, A, Note, Z Flip / Fold) et Huawei (P, Mate, Nova). Les pannes les plus traitées sont le changement d'écran cassé, le remplacement de batterie, la réparation du connecteur de charge, et la réparation caméra.",
+        "Tous les téléphones sont réparés directement à votre domicile à Talence, sans frais de déplacement, en 30 minutes à 1 heure selon la panne. Tarif annoncé à l'avance, pas d'acompte, garantie 6 mois pièces et main-d'œuvre. Pour le changement d'écran de votre téléphone à Talence, nous appliquons automatiquement le bonus QualiRépar de 25 € sur la facture.",
+      ],
+    },
+    serviceLinks: [
+      { label: "Changement écran iPhone Talence", path: "/changement-ecran-iphone-talence" },
+      { label: "Réparation iPhone à domicile Bordeaux", path: "/reparation-iphone-domicile-bordeaux" },
+      { label: "Bonus QualiRépar à Bordeaux", path: "/bonus-qualirepar-bordeaux" },
     ],
   },
   Pessac: {
@@ -522,6 +556,33 @@ const LocalPage: React.FC<LocalPageProps> = ({ city }) => {
           </div>
         </section>
 
+        {/* ── SECTION SEO ÉTENDUE (pour les villes prioritaires) ── */}
+        {data.seoSection && (
+          <section className="py-14 px-4 bg-white border-b border-gray-100">
+            <div className="max-w-3xl mx-auto">
+              <motion.div
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, margin: "-40px" }}
+                variants={container}
+              >
+                <motion.h2 variants={fadeUp} className="text-2xl font-bold text-gray-900 mb-5 tracking-tight">
+                  {data.seoSection.title}
+                </motion.h2>
+                {data.seoSection.paragraphs.map((p, i) => (
+                  <motion.p
+                    key={i}
+                    variants={fadeUp}
+                    className="text-gray-500 leading-relaxed text-[0.95rem] mb-4 last:mb-0"
+                  >
+                    {p}
+                  </motion.p>
+                ))}
+              </motion.div>
+            </div>
+          </section>
+        )}
+
         {/* ── SERVICES ── */}
         <section className="py-16 px-4 bg-gray-50">
           <div className="max-w-4xl mx-auto">
@@ -703,6 +764,40 @@ const LocalPage: React.FC<LocalPageProps> = ({ city }) => {
             </motion.div>
           </div>
         </section>
+
+        {/* ── PAGES SERVICES SPÉCIFIQUES (si présentes) ── */}
+        {data.serviceLinks && data.serviceLinks.length > 0 && (
+          <section className="py-14 px-4 bg-white">
+            <div className="max-w-4xl mx-auto">
+              <motion.div
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true }}
+                variants={container}
+              >
+                <motion.h2 variants={fadeUp} className="text-xl font-bold text-gray-900 mb-2">
+                  Réparations spécifiques à {city}
+                </motion.h2>
+                <motion.p variants={fadeUp} className="text-gray-500 text-sm mb-6">
+                  Pages dédiées à chaque type d'intervention pour plus de détails et tarifs.
+                </motion.p>
+                <div className="flex flex-wrap gap-3">
+                  {data.serviceLinks.map((s) => (
+                    <motion.div key={s.path} variants={fadeUp}>
+                      <Link
+                        to={s.path}
+                        className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#0b6666]/[0.06] border border-[#0b6666]/15 text-sm font-medium text-[#0b6666] hover:bg-[#0b6666]/[0.1] transition-colors"
+                      >
+                        {s.label}
+                        <ArrowRight className="w-3.5 h-3.5 opacity-60" />
+                      </Link>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+            </div>
+          </section>
+        )}
 
         {/* ── VILLES PROCHES ── */}
         <section className="py-14 px-4 bg-gray-50">

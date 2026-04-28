@@ -18,6 +18,14 @@ const cities = [
   { name: "Le Haillan", path: "/reparation-smartphone-le-haillan" },
 ];
 
+const services = [
+  { label: "Changement écran iPhone Bordeaux", path: "/changement-ecran-iphone-bordeaux" },
+  { label: "Changement écran iPhone Talence", path: "/changement-ecran-iphone-talence" },
+  { label: "Remplacement batterie iPhone Bordeaux", path: "/remplacement-batterie-iphone-bordeaux" },
+  { label: "Réparation iPhone à domicile Bordeaux", path: "/reparation-iphone-domicile-bordeaux" },
+  { label: "Bonus QualiRépar Bordeaux", path: "/bonus-qualirepar-bordeaux" },
+];
+
 const ZonesDesservies = () => {
   return (
     <>
@@ -81,6 +89,25 @@ const ZonesDesservies = () => {
               className="block text-center p-3 border rounded-md bg-white hover:bg-[#e7f5e6] transition text-[#356a78] font-medium"
             >
               Réparation à {city.name}
+            </Link>
+          </li>
+        ))}
+      </ul>
+
+      <h2 className="text-xl font-semibold text-center mt-12 mb-4">
+        Réparations spécifiques
+      </h2>
+      <p className="text-center text-gray-600 mb-6 text-sm">
+        Pages dédiées par type d'intervention, avec tarifs détaillés et FAQ.
+      </p>
+      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        {services.map((s) => (
+          <li key={s.path}>
+            <Link
+              to={s.path}
+              className="block text-center p-3 border rounded-md bg-white hover:bg-[#e7f5e6] transition text-[#356a78] font-medium text-sm"
+            >
+              {s.label}
             </Link>
           </li>
         ))}

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Shield, Clock, PenTool as Tool, ArrowRight, Recycle } from "lucide-react";
+import { Shield, Clock, PenTool as Tool, ArrowRight, Recycle, Smartphone, BatteryCharging, Home as HomeIcon, MapPin } from "lucide-react";
 import { motion } from "framer-motion";
 import { Helmet } from "react-helmet-async";
 import { AnimatedBlobs } from "../components/ui/AnimatedBlobs";
@@ -182,13 +182,17 @@ const Home = () => {
             </motion.p>
 
             {/* CTAs */}
-            <motion.div variants={item} className="flex gap-3 pointer-events-auto">
+            <motion.div
+              variants={item}
+              className="flex flex-wrap justify-center gap-3 pointer-events-auto px-4"
+              style={{ marginTop: '0.75rem' }}
+            >
               <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.97 }}>
                 <Link
                   to="/repair"
                   style={{
                     fontFamily: "'Inter', sans-serif",
-                    padding: '14px 32px',
+                    padding: '14px 28px',
                     borderRadius: '999px',
                     background: '#111',
                     color: '#fff',
@@ -196,6 +200,7 @@ const Home = () => {
                     fontWeight: 600,
                     boxShadow: '0 6px 24px rgba(0,0,0,0.18)',
                     display: 'inline-block',
+                    whiteSpace: 'nowrap',
                   }}
                 >
                   Prendre rendez-vous
@@ -207,17 +212,21 @@ const Home = () => {
                   to="/repair"
                   style={{
                     fontFamily: "'Inter', sans-serif",
-                    padding: '14px 32px',
+                    padding: '14px 28px',
                     borderRadius: '999px',
                     background: 'transparent',
                     color: '#111',
                     fontSize: '0.95rem',
                     fontWeight: 600,
                     border: '1.5px solid #d1d5db',
-                    display: 'inline-block',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '6px',
+                    whiteSpace: 'nowrap',
                   }}
                 >
-                  Voir nos tarifs →
+                  Voir nos tarifs
+                  <ArrowRight className="w-4 h-4" strokeWidth={2.2} />
                 </Link>
               </motion.div>
             </motion.div>
@@ -225,7 +234,7 @@ const Home = () => {
 
           {/* Trust chips */}
           <motion.div
-            className="fixed bottom-9 left-1/2 -translate-x-1/2 flex gap-2.5 z-20 whitespace-nowrap"
+            className="fixed bottom-4 sm:bottom-6 left-0 right-0 flex flex-wrap md:flex-nowrap justify-center gap-2 z-20 px-4"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.2, duration: 0.8 }}
@@ -235,10 +244,10 @@ const Home = () => {
                 key={label}
                 style={{
                   fontFamily: "'Inter', sans-serif",
-                  padding: '7px 16px',
+                  padding: '6px 12px',
                   borderRadius: '999px',
                   background: 'rgba(0,0,0,0.06)',
-                  fontSize: '13px',
+                  fontSize: '12px',
                   fontWeight: 500,
                   color: '#374151',
                   border: '1px solid rgba(0,0,0,0.08)',
@@ -246,6 +255,7 @@ const Home = () => {
                   alignItems: 'center',
                   gap: '6px',
                   backdropFilter: 'blur(4px)',
+                  whiteSpace: 'nowrap',
                 }}
               >
                 <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#0b6666', display: 'inline-block', flexShrink: 0 }} />
@@ -412,6 +422,104 @@ const Home = () => {
                   </div>
                   <p className="text-gray-700 text-sm leading-relaxed mb-4">"{t.text}"</p>
                   <p className="text-xs font-semibold text-gray-400">— {t.author}, {t.city}</p>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ═══════════════════════════════════════════
+            RÉPARATIONS POPULAIRES — maillage interne services
+            ═══════════════════════════════════════════ */}
+        <section className="py-16 bg-white border-t border-gray-100">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="text-center mb-10"
+            >
+              <h2
+                className="text-2xl md:text-3xl font-bold text-gray-900 mb-3 tracking-tight"
+                style={{ fontFamily: "'Inter', sans-serif" }}
+              >
+                Nos réparations les plus demandées à Bordeaux
+              </h2>
+              <p className="text-gray-500 text-[0.95rem] max-w-2xl mx-auto">
+                Pages dédiées avec tarifs détaillés par modèle, étapes de l'intervention et FAQ.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: "-60px" }}
+              variants={container}
+              className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5"
+            >
+              {[
+                {
+                  icon: <Smartphone className="w-5 h-5 text-[#0b6666]" />,
+                  title: "Changement écran iPhone Bordeaux",
+                  desc: "Tous modèles iPhone 11 à 16 Pro Max. À domicile en 1h. À partir de 74 € avec QualiRépar.",
+                  path: "/changement-ecran-iphone-bordeaux",
+                },
+                {
+                  icon: <BatteryCharging className="w-5 h-5 text-[#0b6666]" />,
+                  title: "Remplacement batterie iPhone Bordeaux",
+                  desc: "À domicile en 30 min. Batterie premium, garantie 6 mois. À partir de 59 €.",
+                  path: "/remplacement-batterie-iphone-bordeaux",
+                },
+                {
+                  icon: <HomeIcon className="w-5 h-5 text-[#0b6666]" />,
+                  title: "Réparation iPhone à domicile Bordeaux",
+                  desc: "Toutes pannes : écran, batterie, charge, caméra. Déplacement gratuit dans toute la métropole.",
+                  path: "/reparation-iphone-domicile-bordeaux",
+                },
+                {
+                  icon: <Smartphone className="w-5 h-5 text-[#0b6666]" />,
+                  title: "Changement écran iPhone Talence",
+                  desc: "Réparateur iPhone basé à Talence. Intervention possible dans l'heure. Tous quartiers.",
+                  path: "/changement-ecran-iphone-talence",
+                },
+                {
+                  icon: <Recycle className="w-5 h-5 text-[#0b6666]" />,
+                  title: "Bonus QualiRépar 25 € à Bordeaux",
+                  desc: "Phone Master est agréé QualiRépar. Bonus déduit automatiquement de la facture.",
+                  path: "/bonus-qualirepar-bordeaux",
+                },
+                {
+                  icon: <MapPin className="w-5 h-5 text-[#0b6666]" />,
+                  title: "Réparation téléphone Talence",
+                  desc: "Réparateur basé à Talence. Tous types de réparations smartphone à domicile, sans frais.",
+                  path: "/reparation-telephone-talence",
+                },
+              ].map((card) => (
+                <motion.div
+                  key={card.path}
+                  variants={item}
+                  whileHover={{ y: -4 }}
+                  className="group"
+                >
+                  <Link
+                    to={card.path}
+                    className="block bg-white rounded-2xl border border-gray-200 p-5 hover:border-[#0b6666]/40 hover:shadow-md transition-all h-full"
+                  >
+                    <div
+                      className="w-10 h-10 rounded-xl flex items-center justify-center mb-4"
+                      style={{ background: "rgba(11,102,102,0.08)" }}
+                    >
+                      {card.icon}
+                    </div>
+                    <h3 className="text-sm font-bold text-gray-900 mb-2 group-hover:text-[#0b6666] transition-colors">
+                      {card.title}
+                    </h3>
+                    <p className="text-xs text-gray-500 leading-relaxed">{card.desc}</p>
+                    <div className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-[#0b6666] opacity-0 group-hover:opacity-100 transition-opacity">
+                      Voir les détails <ArrowRight className="w-3 h-3" />
+                    </div>
+                  </Link>
                 </motion.div>
               ))}
             </motion.div>

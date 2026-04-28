@@ -10,6 +10,7 @@ import Booking from "./pages/Booking";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
 import LocalPage from "./pages/LocalPage";
+import ServicePage from "./pages/ServicePage";
 import ZonesDesservies from "./pages/ZonesDesservies";
 
 const Layout = () => (
@@ -42,6 +43,15 @@ const cityRoutes: { path: string; city: string }[] = [
   { path: "reparation-smartphone-le-haillan",       city: "Le Haillan" },
 ];
 
+// Pages services × villes (intentions transactionnelles fortes)
+const serviceRoutes: { path: string; configKey: string }[] = [
+  { path: "changement-ecran-iphone-bordeaux",      configKey: "ecran-iphone-bordeaux" },
+  { path: "changement-ecran-iphone-talence",       configKey: "ecran-iphone-talence" },
+  { path: "remplacement-batterie-iphone-bordeaux", configKey: "batterie-iphone-bordeaux" },
+  { path: "reparation-iphone-domicile-bordeaux",   configKey: "iphone-domicile-bordeaux" },
+  { path: "bonus-qualirepar-bordeaux",             configKey: "qualirepar-bordeaux" },
+];
+
 export const routes: RouteRecord[] = [
   {
     path: "/",
@@ -56,6 +66,10 @@ export const routes: RouteRecord[] = [
       ...cityRoutes.map(({ path, city }) => ({
         path,
         element: <LocalPage city={city} />,
+      })),
+      ...serviceRoutes.map(({ path, configKey }) => ({
+        path,
+        element: <ServicePage configKey={configKey} />,
       })),
     ],
   },
