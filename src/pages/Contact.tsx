@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import { Phone, Mail, MapPin, Clock, ArrowRight } from "lucide-react";
+import { trackFormSubmit } from "../lib/analytics";
 
 const Contact = () => {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
@@ -14,6 +15,9 @@ const Contact = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSent(true);
+    trackFormSubmit("contact", {
+      page_path: typeof window !== "undefined" ? window.location.pathname : "/contact",
+    });
   };
 
   const infos = [

@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import type { RouteRecord } from "vite-react-ssg";
@@ -12,19 +13,52 @@ import About from "./pages/About";
 import LocalPage from "./pages/LocalPage";
 import ServicePage from "./pages/ServicePage";
 import ZonesDesservies from "./pages/ZonesDesservies";
+import { trackCallClick, trackEmailClick } from "./lib/analytics";
 
-const Layout = () => (
-  <HelmetProvider>
-    <div className="min-h-screen flex flex-col">
-      <ScrollToTop />
-      <Navbar />
-      <main className="flex-grow">
-        <Outlet />
-      </main>
-      <Footer />
-    </div>
-  </HelmetProvider>
-);
+/**
+ * Hook qui intercepte les clics sur les liens tel: et mailto:
+ * et pousse les événements correspondants dans le dataLayer GTM.
+ * Permet de tracker les conversions sans modifier chaque composant.
+ */
+const useGlobalLinkTracking = () => {
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const handleClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
+      const link = target.closest("a");
+      if (!link) return;
+      const href = link.getAttribute("href") || "";
+      const source = window.location.pathname || "unknown";
+
+      if (href.startsWith("tel:")) {
+        trackCallClick(source);
+      } else if (href.startsWith("mailto:")) {
+        trackEmailClick(source);
+      }
+    };
+
+    document.addEventListener("click", handleClick, { capture: true });
+    return () => document.removeEventListener("click", handleClick, { capture: true } as EventListenerOptions);
+  }, []);
+};
+
+const Layout = () => {
+  useGlobalLinkTracking();
+  return (
+    <HelmetProvider>
+      <div className="min-h-screen flex flex-col">
+        <ScrollToTop />
+        <Navbar />
+        <main className="flex-grow">
+          <Outlet />
+        </main>
+        <Footer />
+      </div>
+    </HelmetProvider>
+  );
+};
 
 const cityRoutes: { path: string; city: string }[] = [
   { path: "reparation-telephone-talence",           city: "Talence" },
